@@ -1,5 +1,20 @@
+.navbar-nav {
+  padding: 10px;
+  justify-content: space-between;
+}
+
 .App {
   text-align: center;
+}
+
+.container {
+  text-align: center;
+  border: 3px white;
+}
+
+.bar {
+  padding: 10px;
+  justify-content: space-between;
 }
 
 .App-logo {
@@ -24,8 +39,19 @@
   color: white;
 }
 
+.enter {
+  border: black;
+  margin: 19px;
+}
+
 .App-link {
   color: #61dafb;
+}
+
+button {
+  height: 80px;
+  width: 200px;
+  font-size: large;
 }
 
 @keyframes App-logo-spin {
