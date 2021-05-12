@@ -7,16 +7,20 @@ export const Navbar = () => (
 			<div >
 				{false ? (
 					<span>
-						<Link to='/profile' >
+						<Link className="navBar" to='/profile' >
 						Profile
 						</Link>
 
-						<Link to="/">
-						<p >Logout</p>
+						<Link className="navBar" to="/">
+						Logout
 						</Link>
 
-						<Link to='/upload' >
+						<Link className="navBar" to='/upload' >
 							Upload
+						</Link>
+
+						<Link className="navBar" to='/create' >
+							Create
 						</Link>
 						</span>
 				) : (

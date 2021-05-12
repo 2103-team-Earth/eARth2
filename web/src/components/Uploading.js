@@ -6,14 +6,22 @@ export class Uploading extends Component {
     	constructor(props) {
     		super(props);
     		this.state = {
-    			view: this.props.view,
+    			anchor: "no",
+          name: "",
+          description: "",
+          model: "",
+          audio: "",
+          markerimage: ""
     		};
     		this.handleChange = this.handleChange.bind(this); 	
         this.handleSubmit = this.handleSubmit.bind(this)
         }
 
 
-            handleChange() {
+            handleChange(evt) {
+              this.setState({
+                [evt.target.name]: evt.target.value
+              });
 
             }
 
@@ -25,6 +33,7 @@ export class Uploading extends Component {
 
 render() {
     const {handleSubmit, handleChange} = this
+    const {anchor, name, description, model, audio, markerimage} = this.state
     return (
         <div className="container">
           <form onSubmit={handleSubmit}>
@@ -33,40 +42,43 @@ render() {
               <label htmlFor="model_name">
                 <small>Model Name:  </small>
               </label>
-              <input name="model_name" type="text"  />
+              <input name="name" onChange={handleChange} value={name} />
             </div>
             <div>
               <label htmlFor="description">
                 <small>Model Description: </small>
               </label>
-              <input name="description" type="text" />
+              <input name="description" onChange={handleChange} value={description} />
             </div>
             <div>
               <label htmlFor="model">
                 <small>3D model: </small>
               </label>
-              <input name="model" type="file" accept=".obj, .vfx"/>
+              <input name="model" type="file" accept=".obj, .vfx" onChange={handleChange} value={model}/>
             </div>
             <div>
               <label htmlFor="audio">
                 <small>Audio: </small>
               </label>
-              <input name="audio" type="file" accept="audio/*" />
+              <input name="audio" type="file" accept="audio/*" onChange={handleChange} value={audio} />
             </div>
-            {/* <div >
-            <small>View:  </small>
-                <select value={this.state.view} onChange={handleChange}>
-                    <option value='1'>AR Plane Selector</option>
-                    <option value='2'>Image Marker</option>
-                    <option value='3'>AR Plane</option>
-                </select>
-                  {this.state.view === "Image Marker"  ? (<div>
-              <label htmlFor="markerimage">
+            <div className="yesOrNo">
+              <h5>Would you like to have an image marker to render your AR models?</h5>
+              <select  id="dropbown" name="anchor" onChange={handleChange} value={anchor}>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+             {this.state.anchor === "yes" ? (<div>
+               <label htmlFor="markerimage">
               <small>Marker Image: </small>
+              <p>(Please upload a image which you can scan to render your 3D model)</p>
               </label>
-              <input name="markerimage" type="file" accept="image/*" />  
-              </div>) : (<div></div>)/*Add ternary to display an image upload if user selects image marker*/}
-              {/* </div> */} 
+              <input name="markerimage" type="file" accept="image/*" onChange={handleChange} value={markerimage}/> 
+              </div>) : 
+              (<div>
+                <p>You will have a default anchor of AR Plane Selector</p>
+                </div>) }
               <div>
               <button className="enter" type="submit">Submit</button>
             </div>
