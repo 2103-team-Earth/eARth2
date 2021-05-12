@@ -1,8 +1,16 @@
-/* .logLi {
-  display: inline;
-  margin: 0 10px;
+.colors {
+  align-items: center;
+  margin: 6px;
+}
+.shapes {
+  align-items: center;
+  margin: 6px;
 }
 
+.yesOrNo {
+  align-items: center;
+}
+/*
 .logUl {
   list-style: none outside none;
   margin: 0;
