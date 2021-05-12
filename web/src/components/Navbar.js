@@ -3,48 +3,42 @@ import React from "react";
 
 export const Navbar = () => (
 	<div>
-        <span>
-		<nav className='navbar navbar-expand-lg navbar-light bg-light'>
-			{/* <div className='container-fluid'>
-            
-				<span className='navbar-brand display-1' href='#'>
-					eARth
-				</span>
-			</div> */}
-			
-			<div className='bar' id='navbarNav'>
+		<nav >
+			<div >
 				{false ? (
-					<ul className='navbar-nav'>
-						<Link to='/' className='nav-item nav-link'>
-							Profile
+					<span>
+						<Link to='/profile' >
+						Profile
 						</Link>
-						{/* <a href='#' className='nav-item nav-link' onClick={handleClick}>
-							Logout
-						</a> */}
-                        <p>Logout</p>
-						<Link to='/upload' className='nav-item nav-link'>
+
+						<Link to="/">
+						<p >Logout</p>
+						</Link>
+
+						<Link to='/upload' >
 							Upload
 						</Link>
-					</ul>
+						</span>
 				) : (
-					<ul className='navbar-nav'>
+					<span >
 						{/* The navbar will show these links before you log in */}
-						<Link to='/' className='nav-item nav-link'>
+						<Link className="navBar" to='/' >
 							Home
 						</Link>
-						<Link to='/login' className='nav-item nav-link'>
+
+						<Link className="navBar" to='/login'>
 							Login
 						</Link>
-						<Link to='/signup' className='nav-item nav-link'>
+
+						<Link className="navBar" to='/signup'>
 							Sign Up
 						</Link>
 					
-					</ul>
+					</span>
 				)}
 			</div>
 		</nav>
 		<hr />
-        </span>
 	</div>
 );
 

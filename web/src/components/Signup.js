@@ -34,7 +34,7 @@ export const Signup = (props) => {
           </div>
           <div>
           <label htmlFor="biography">
-              <small>Email: </small>
+              <small>Biography: </small>
             </label>
             <input name="biography" type="text" />  
           </div>
