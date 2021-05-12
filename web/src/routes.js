@@ -4,7 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import { Login } from "./components/Login"
 import { Signup } from "./components/Signup"
 import { Uploading } from "./components/Uploading";
-
+import { Home } from "./components/Home"
 
 export default class Routes extends Component {
 
@@ -14,6 +14,7 @@ export default class Routes extends Component {
     return (
       <div>
         <Switch>
+          <Route exact path="/" component={Home} />
           <Route path="/upload" component={Uploading}/>
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />

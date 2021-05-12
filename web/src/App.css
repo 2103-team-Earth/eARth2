@@ -1,15 +1,33 @@
-.navbar-nav {
-  padding: 10px;
+/* .logLi {
+  display: inline;
+  margin: 0 10px;
+}
+
+.logUl {
+  list-style: none outside none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+} */
+
+.navBar {
+  margin: 40px;
   justify-content: space-between;
+}
+
+.container {
+  text-align: left;
+  width: 500px;
+  clear: both;
+}
+
+.container input {
+  width: 100%;
+  clear: both;
 }
 
 .App {
   text-align: center;
-}
-
-.container {
-  text-align: center;
-  border: 3px white;
 }
 
 .bar {
@@ -41,7 +59,8 @@
 
 .enter {
   border: black;
-  margin: 19px;
+  margin: 20px;
+  text-align: center;
 }
 
 .App-link {
