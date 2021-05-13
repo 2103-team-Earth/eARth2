@@ -1,8 +1,6 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-
-
-export class Uploading extends Component {
+class Uploading extends Component {
     	constructor(props) {
     		super(props);
     		this.state = {
@@ -13,7 +11,7 @@ export class Uploading extends Component {
           audio: "",
           markerimage: ""
     		};
-    		this.handleChange = this.handleChange.bind(this); 	
+    		this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this)
         }
 
@@ -35,6 +33,9 @@ render() {
     const {handleSubmit, handleChange} = this
     const {anchor, name, description, model, audio, markerimage} = this.state
     return (
+      <div className="App">
+      <header className="App-header">
+
         <div className="container">
           <form onSubmit={handleSubmit}>
           <h1>New Project </h1>
@@ -74,8 +75,8 @@ render() {
               <small>Marker Image: </small>
               <p>(Please upload a image which you can scan to render your 3D model)</p>
               </label>
-              <input name="markerimage" type="file" accept="image/*" onChange={handleChange} value={markerimage}/> 
-              </div>) : 
+              <input name="markerimage" type="file" accept="image/*" onChange={handleChange} value={markerimage}/>
+              </div>) :
               (<div>
                 <p>You will have a default anchor of AR Plane Selector</p>
                 </div>) }
@@ -84,8 +85,13 @@ render() {
             </div>
           </form>
         </div>
+
+      </header>
+      </div>
       );
     }
     }
+
+export default Uploading;
 
 
