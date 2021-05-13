@@ -1,55 +1,77 @@
-import {React, Component} from "react";
+import React, { Component } from 'react';
+import { withRouter } from 'react-router';
+import firebase from 'firebase';
+import "firebase/firestore";
 
-  export class Login extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-       username: "",
-       password: ""
-      };
-      this.handleChange = this.handleChange.bind(this); 	
-      this.handleSubmit = this.handleSubmit.bind(this)
-      }
+class Login extends Component {
+  constructor() {
+    super();
+    this.state = {
+      email: '',
+      password: '',
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
 
-          handleChange(evt) {
-            this.setState({
-              [evt.target.name]: evt.target.value
-            });
+  handleSubmit(e) {
+    e.preventDefault();
 
-          }
+    const { email, password } = this.state;
 
-          handleSubmit() {
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then((result) => {
+        console.log(result)
+      })
+      .catch((error) => {
+        console.log(error)
+      });
 
-          }
+    this.props.history.push('/');
+  }
 
-          render() {
-            const {handleSubmit, handleChange} = this
-            const {username, password} = this.state
-            return (
-              <div className="container">
-                     <h1>Login</h1>
-                <form onSubmit={handleSubmit}>
-                  <div>
-                    <label htmlFor="username">
-                      <small>Username: </small>
-                    </label>
-                    <input name="username" type="text" onChange={handleChange} value={username}/>
-                  </div>
-                  <div>
-                    <label htmlFor="password">
-                      <small>Password: </small>
-                    </label>
-                    <input name="password" type="password" onChange={handleChange} value={password} />
-                  </div>
-                  <div className="enter">
-                    <button type="submit">Submit</button>
-                  </div>
-                </form>
-              </div>
-            );
-            }
-            }
-        
-        
-        
+  render() {
+    return (
+      <div className="App">
+      <header className="App-header">
+
+      <div className="container">
+
+        <h1>Login</h1>
+
+        <form onSubmit={this.handleSubmit}>
+
+          <div>
+            <label htmlFor="email">
+            <small>Email: </small>
+            </label>
+            <input name="email" type="email" onChange={this.handleChange} value={this.state.email} />
+          </div>
+
+          <div>
+            <label htmlFor="password">
+            <small>Password: </small>
+            </label>
+            <input name="password" type="password" onChange={this.handleChange} value={this.state.password} />
+          </div>
+
+          <div className="enter">
+            <button type="submit">Login</button>
+          </div>
+
+        </form>
+      </div>
+
+      </header>
+      </div>
+    );
+  }
+}
+
+export default withRouter(Login);
