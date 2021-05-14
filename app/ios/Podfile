@@ -1,0 +1,48 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'app' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+
+  # Pods for app
+
+  # target 'app-tvOSTests' do
+  #   inherit! :search_paths
+  #   # Pods for testing
+  # end
+
+  pod 'RNCMaskedView', :path => '../node_modules/@react-native-community/masked-view'
+
+  pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
+
+  pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
+
+  pod 'RNScreens', :path => '../node_modules/react-native-screens'
+
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
+  pod 'RNGestureHandler', :path => "../node_modules/react-native-gesture-handler"
+
+  
+
+  target 'appTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
+
+target 'app-tvOS' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for app-tvOS
+
+  target 'app-tvOSTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
