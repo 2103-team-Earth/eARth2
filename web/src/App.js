@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
+
 import firebase from 'firebase';
 
 import Home from './components/Home';
@@ -9,6 +10,7 @@ import Login from './components/Login';
 import Logout from './components/Logout';
 import Uploading from './components/Uploading';
 import Create from './components/Create';
+import Welcome from './components/Welcome'
 
 
 const firebaseConfig = {
@@ -90,7 +92,7 @@ class App extends Component {
 
             <nav>
               <Link className="navBar" to="/">Home</Link>
-              <Link className="navBar" to="/uploading">Uploading</Link>
+              <Link className="navBar" to="/uploading">Upload</Link>
               <Link className="navBar" to="/create">Create</Link>
               <Link className="navBar" to="/logout">Logout</Link>
               {/* <Link className="navBar" to="/projects">Projects</Link> */}
@@ -101,7 +103,7 @@ class App extends Component {
               <Route path="/uploading" component={Uploading} />
               <Route path="/create" component={Create} />
               <Route exact path="/logout" component={Logout} />
-              <Route exact path="/" component={Home} />
+              <Route exact path="/" component={Welcome} />
             </Switch>
 
           </div>

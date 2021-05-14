@@ -1,18 +1,20 @@
 import React, { Component } from "react";
+import  Both  from "./Both"
+import {Text } from "./Text"
+import { Shape } from "./Shape"
+
+
 
 class Create extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          shape: "",
-          color: "",
-          animation: "no",
-          animate: "rotate"
-    		};
+          view: "both"
+          }
+    		
     		this.handleChange = this.handleChange.bind(this);
-            this.handleSubmit = this.handleSubmit.bind(this)
-        }
 
+        }
 
             handleChange(evt) {
               this.setState({
@@ -21,70 +23,27 @@ class Create extends Component {
 
             }
 
-            handleSubmit() {
-
-            }
-
-
-
-        render() {
-            const {handleSubmit, handleChange} = this
-            const {animation, shape, color, animate} = this.state
+            render() {
+            const {handleChange} = this
+            const { view } = this.state
             return (
                 <div className="App">
                 <header className="App-header">
-
-                <div className="container">
-                <form onSubmit={handleSubmit}>
-                <h1>Create 3D Model </h1>
-                <div className="shapes">
-                    <label htmlFor="shape" >Shape:
-                    <select className="shapes" id="dropbown" name="shape" onChange={handleChange} value={ shape}>
-                        <option value="sphere">Sphere</option>
-                        <option value="box">Box</option>
-                    </select>
-                    </label>
+                
+                <form className="views">
+                    <div >
+                        <h5>Would you like to create a 3D Text model, Shape Model, or Both? </h5>
+                        <label>  Text:  </label>
+                        <input type="radio" id="text" name="view" onChange={handleChange} value="text" /> |
+                        <label>  Shape:  </label>
+                        <input type="radio" id="shape" name="view" onChange={handleChange} value="shape" /> |
+                        <label>  Both:  </label>
+                        <input defaultChecked type="radio" id="both" name="view" onChange={handleChange} value="both" /> 
                     </div>
-
-                    <div className="colors">
-                    <label htmlFor="color" >Colors:
-                    <select className="colors" id="dropbown" name="color" onChange={handleChange} value={ color}>
-                        <option value="red">Red</option>
-                        <option value="blue">Blue</option>
-                        <option value="yellow">Yellow</option>
-                        <option value="green">Green</option>
-                        <option value="orange">Orange</option>
-                    </select>
-                    </label>
-                    </div>
-
-                    <div className="animations">
-                    <h5>Would you like to animate your model?</h5>
-                    <select  id="dropbown" name="animation" onChange={handleChange} value={animation}>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </select>
-                    </div>
-                    {this.state.animation === "yes" ? (<div>
-                    <label htmlFor="animate">
-                    <small>Animate options</small>
-                    </label>
-                    <select  id="dropbown" name="animate" onChange={handleChange} value={animate}>
-                        <option value="spin">Spin</option>
-                        <option value="jump">Jump</option>
-                        <option value="flip">Flip</option>
-                        <option value="forward">forward</option>
-                        <option value="backward">Backward</option>
-                    </select>
-                    </div>) :
-                    (<div>
-                        <p>Your model will be static.</p>
-                        </div>) }
-                    <div>
-                    <button className="enter" type="submit">Submit</button>
-                    </div>
-                </form>
-                </div>
+                    </form>
+                    {view === "both" ? (<Both />) : (<div></div>)}
+                    {view === "shape" ? (<Shape />) : (<div></div>)}
+                    {view === "text" ? (<Text />) : (<div></div>)}
 
                 </header>
                 </div>
@@ -92,4 +51,4 @@ class Create extends Component {
             }
             }
 
-export default Create;
+            export default Create;

@@ -49,6 +49,7 @@ class Signup extends Component {
     render() {
       return (
         <div className="App">
+        <h1>eARth</h1>
         <header className="App-header">
 
         <div className="container">
