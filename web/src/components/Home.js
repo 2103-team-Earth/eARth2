@@ -7,7 +7,9 @@ class Home extends Component {
     return (
 
       <div className="App">
+        <div className="logo-ann" >
         <h1>eARth</h1>
+        </div>
         <header className="App-header">
 
           {/* <img src={logo} className="App-logo" alt="logo" /> */}

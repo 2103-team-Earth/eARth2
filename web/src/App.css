@@ -1,3 +1,13 @@
+.views {
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-ann {
+  animation-duration: 3s;
+  animation-name: bounce;
+}
+
 .colors {
   align-items: center;
   margin: 6px;
@@ -21,6 +31,10 @@
 .navBar {
   margin: 40px;
   justify-content: space-between;
+  text-decoration: none;
+  font-size: 25px;
+  font-weight: bold;
+  color: black;
 }
 
 .container {

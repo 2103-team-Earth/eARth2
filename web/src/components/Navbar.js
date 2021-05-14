@@ -16,7 +16,7 @@ export const Navbar = () => (
 						</Link>
 
 						<Link className="navBar" to='/upload' >
-							Upload
+						Upload
 						</Link>
 
 						<Link className="navBar" to='/create' >
