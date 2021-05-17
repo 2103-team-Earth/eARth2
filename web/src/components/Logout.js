@@ -6,9 +6,7 @@ import { Link } from "react-router-dom";
 class Logout extends Component {
   render() {
     return (
-      <div className="App">
-      <h1>eARth</h1>
-      <header className="App-header">
+      <div className="page">
 
       <div>
         <h4>Would you like to log out of your account?</h4>
@@ -17,7 +15,6 @@ class Logout extends Component {
         </Link>
       </div>
 
-      </header>
       </div>
     )
   }

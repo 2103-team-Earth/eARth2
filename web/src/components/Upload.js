@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Uploading extends Component {
+class Upload extends Component {
     	constructor(props) {
     		super(props);
     		this.state = {
@@ -92,6 +92,6 @@ render() {
     }
     }
 
-export default Uploading;
+export default Upload;
 
 
