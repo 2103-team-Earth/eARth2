@@ -18,8 +18,8 @@ var sharedProps = {
 
 // Sets the default scene you want for AR and VR
 var InitialARScene = require('./js/HelloWorldSceneAR');
-var chooseYourBase = require('./js/ARPlaneSelector');
-var chooseAnImageBase = require('./js/ARImageMarker');
+var ChooseYourBase = require('./js/ARPlaneSelector');
+var ChooseAnImageBase = require('./js/ARImageMarker');
 // var InitialVRScene = require('./js/HelloWorldScene');
 
 var UNSET = 'UNSET';
@@ -125,7 +125,7 @@ export default class ViroSample extends Component {
     return (
       <ViroARSceneNavigator
         {...this.state.sharedProps}
-        initialScene={{ scene: chooseYourBase }}
+        initialScene={{ scene: ChooseYourBase }}
       />
     );
   }
@@ -134,7 +134,7 @@ export default class ViroSample extends Component {
     return (
       <ViroARSceneNavigator
         {...this.state.sharedProps}
-        initialScene={{ scene: chooseAnImageBase }}
+        initialScene={{ scene: ChooseAnImageBase }}
       />
     );
   }

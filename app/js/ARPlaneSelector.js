@@ -33,7 +33,7 @@ export default class ChooseBase extends Component {
   render() {
     return (
       <ViroARScene>
-        <ViroARPlaneSelector minHeight={0.5} minWidth={0.5}>
+        <ViroARPlaneSelector>
           <ViroAmbientLight color='#d3d3d3' intensity={150} />
           <ViroDirectionalLight
             color='#d3d3d3'
