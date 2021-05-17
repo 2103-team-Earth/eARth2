@@ -4,6 +4,7 @@ import {
   Text,
   View,
   StyleSheet,
+  // CR * understand why unused
   PixelRatio,
   TouchableHighlight,
 } from 'react-native';
@@ -15,11 +16,11 @@ import { ViroVRSceneNavigator, ViroARSceneNavigator } from 'react-viro';
 var sharedProps = {
   apiKey: 'API_KEY_HERE',
 };
-
+// CR * var/pasted code
 // Sets the default scene you want for AR and VR
 var InitialARScene = require('./js/HelloWorldSceneAR');
 var chooseYourBase = require('./js/ARPlaneSelector');
-var chooseAnImageBase = require('./js/ARImageMarker');
+var chooseAnImageBase = require('./js/ARImageMarker'); // CR * capitalize
 // var InitialVRScene = require('./js/HelloWorldScene');
 
 var UNSET = 'UNSET';

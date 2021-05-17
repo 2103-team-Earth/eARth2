@@ -5,7 +5,7 @@ import { withNavigation } from 'react-navigation';
 const BackButton = (props) => {
   return (
     <TouchableOpacity
-      hitSlop={{ top: 15, left: 15, bottom: 15, right: 15 }}
+      hitSlop={{ top: 15, left: 15, bottom: 15, right: 15 /* CR * hit dis slop */ }}
       onPress={() => props.navigation.goBack()}
       style={styles.container}
     >
