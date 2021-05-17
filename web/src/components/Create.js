@@ -41,6 +41,7 @@ class Create extends Component {
                         <input defaultChecked type="radio" id="both" name="view" onChange={handleChange} value="both" /> 
                     </div>
                     </form>
+                    {/* CR * routes instead */}
                     {view === "both" ? (<Both />) : (<div></div>)}
                     {view === "shape" ? (<Shape />) : (<div></div>)}
                     {view === "text" ? (<Text />) : (<div></div>)}

@@ -65,11 +65,13 @@ render() {
             </div>
             <div className="yesOrNo">
               <h5>Would you like to have an image marker to render your AR models?</h5>
+              {/* CR * dropbown */}
               <select  id="dropbown" name="anchor" onChange={handleChange} value={anchor}>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
               </select>
             </div>
+              {/* CR * ternary */}
              {this.state.anchor === "yes" ? (<div>
                <label htmlFor="markerimage">
               <h3>Marker Image </h3>
