@@ -68,7 +68,7 @@ export default class ChooseImage extends Component {
 
 ViroARTrackingTargets.createTargets({
   frame: {
-    source: require('./res/test4.png'),
+    source: require('./res/test1.png'),
     orientation: 'Up',
     physicalWidth: 0.1,
   },

@@ -19,7 +19,7 @@ import {
   ViroAnimations,
 } from 'react-viro';
 
-export default class HelloWorldSceneAR extends Component {
+export default class ARAuto extends Component {
   constructor() {
     super();
 
@@ -36,32 +36,70 @@ export default class HelloWorldSceneAR extends Component {
     const { projects } = this.props;
     return (
       <ViroARScene onTrackingUpdated={this._onInitialized}>
-        <ViroAmbientLight color='#ffffff' intensity={150} />
+        <ViroAmbientLight color={projects.color} intensity={150} />
         <ViroDirectionalLight
-          color='#ffffff'
+          color={projects.color}
           direction={[0.5, -1, 0.5]}
           castsShadow={true}
         />
         <ViroText
           text={this.state.text}
-          scale={[0.25, 0.25, 0.25]}
+          scale={[
+            projects.textScaleX,
+            projects.textScaleY,
+            projects.textScaleZ,
+          ]}
           position={[0, 0, -1]}
           style={styles.helloWorldTextStyle}
         />
-
-        <ViroBox
+        {projects.shape.cube ? (
+          <ViroBox
+            position={[0, -0.5, -1]}
+            scale={[
+              projects.shapeScaleX,
+              projects.shapeScaleY,
+              projects.shapeScaleZ,
+            ]}
+            materials={'takashi'}
+            animation={{ name: 'rotate', run: true, loop: true }}
+          />
+        ) : (
+          <ViroSphere
+            position={[0, -0.5, -1]}
+            scale={[
+              projects.shapeScaleX,
+              projects.shapeScaleY,
+              projects.shapeScaleZ,
+            ]}
+            materials={'takashi'}
+            animation={{ name: 'rotate', run: true, loop: true }}
+          />
+        )}
+        {/* <ViroBox
           position={[0, -0.5, -1]}
           scale={[0.3, 0.3, 0.3]}
           materials={'takashi'}
           animation={{ name: 'rotate', run: true, loop: true }}
-        />
+        /> */}
         <ViroSound
           paused={false}
           muted={false}
           source={'takashiSoundTest'}
           loop={true}
+          // onError={console.error(ViroSound)}
           volume={1.0}
         />
+        {/* <ViroSpatialSound
+          rolloffModel='linear'
+          paused={false}
+          muted={false}
+          minDistance={2}
+          maxDistance={5}
+          position={[0, -0.5, -1]}
+          source={'https://soundcloud.com/loosethakid/saturdaymorningcartoons'}
+          loop={true}
+          volume={1.0}
+        /> */}
       </ViroARScene>
     );
   }
@@ -108,4 +146,4 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = HelloWorldSceneAR;
+module.exports = ARAuto;
