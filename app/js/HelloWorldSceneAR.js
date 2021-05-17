@@ -56,6 +56,7 @@ export default class HelloWorldSceneAR extends Component {
   _onInitialized(state, reason) {
     if (state == ViroConstants.TRACKING_NORMAL) {
       this.setState({
+        // CR * what do?
         text: 'Color?',
       });
     } else if (state == ViroConstants.TRACKING_NONE) {
@@ -70,7 +71,7 @@ ViroMaterials.createMaterials({
     lightingModel: 'Blinn',
   },
 });
-
+// CR * anim label?
 ViroAnimations.registerAnimations({
   rotate: {
     properties: {

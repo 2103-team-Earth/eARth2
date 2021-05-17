@@ -70,6 +70,7 @@ export class Shape extends Component {
                         <option value="box">Box</option>
                     </select>
                     </label>
+                    {/* CR * seeing this code again */}
                     <h5>Shape Scale: </h5>
                     <label htmlFor="shapeScale" >
                     <label> X: {shapeScaleX}</label>

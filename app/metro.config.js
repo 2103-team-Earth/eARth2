@@ -9,7 +9,7 @@
  * React Native CLI configuration file
  */
 'use strict';
-
+// CR * what is metro?
 const { getDefaultConfig } = require("metro-config");
 
 module.exports = (async () => {

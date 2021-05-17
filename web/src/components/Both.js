@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { SketchPicker } from 'react-color';
+// CR * formatting
 
 
 
 export class Both extends Component {
     constructor(props) {
         super(props);
+        // CR * grouping properties
         this.state = {
           name: "",
           shape: "sphere",
@@ -55,6 +57,7 @@ export class Both extends Component {
 
         render() {
             const {handleSubmit, handleChange, handleChangeColor} = this
+            // CR * horizontal size
             const {animation, shape, colorSelected, animate, text, name, textScaleX, textScaleY, textScaleZ, shapeScaleX, shapeScaleY, shapeScaleZ, fontSize, audio} = this.state
             return (
                 <div className="App">
@@ -101,6 +104,7 @@ export class Both extends Component {
                         <option value="box">Box</option>
                     </select>
                     </label>
+                    {/* CR * sub components to group form fields */}
                     <h5>Shape Scale: </h5>
                     <label htmlFor="shapeScale" >
                     <label> X: {shapeScaleX}</label>
