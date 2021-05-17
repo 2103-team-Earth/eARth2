@@ -1,3 +1,17 @@
+* {
+  box-sizing: border-box;
+}
+
+.views {
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-ann {
+  animation-duration: 3s;
+  animation-name: bounce;
+}
+
 .colors {
   align-items: center;
   margin: 6px;
@@ -21,6 +35,10 @@
 .navBar {
   margin: 40px;
   justify-content: space-between;
+  text-decoration: none;
+  font-size: 25px;
+  font-weight: bold;
+  color: black;
 }
 
 .container {
@@ -33,6 +51,39 @@
   width: 100%;
   clear: both;
 }
+
+
+.page {
+  text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.user-projects-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.user-project-div {
+  margin: 1rem 4rem;
+  padding: 1rem;
+  width: 18rem;
+  border: 2px solid white;
+  border-radius: 5px;
+}
+
+h6 {
+  margin: 0;
+}
+
 
 .App {
   text-align: center;
@@ -79,6 +130,7 @@ button {
   height: 80px;
   width: 200px;
   font-size: large;
+  cursor: pointer;
 }
 
 @keyframes App-logo-spin {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Uploading extends Component {
+class Upload extends Component {
     	constructor(props) {
     		super(props);
     		this.state = {
@@ -72,7 +72,7 @@ render() {
             </div>
              {this.state.anchor === "yes" ? (<div>
                <label htmlFor="markerimage">
-              <small>Marker Image: </small>
+              <h3>Marker Image </h3>
               <p>(Please upload a image which you can scan to render your 3D model)</p>
               </label>
               <input name="markerimage" type="file" accept="image/*" onChange={handleChange} value={markerimage}/>
@@ -92,6 +92,6 @@ render() {
     }
     }
 
-export default Uploading;
+export default Upload;
 
 

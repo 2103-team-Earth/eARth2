@@ -7,8 +7,10 @@ import Home from './components/Home';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import Logout from './components/Logout';
-import Uploading from './components/Uploading';
+// import Upload from './components/Upload';
 import Create from './components/Create';
+import Welcome from './components/Welcome'
+import Projects from './components/Projects';
 
 
 const firebaseConfig = {
@@ -26,13 +28,12 @@ if (firebase.apps.length === 0) {
 };
 
 
-
 class App extends Component {
   constructor(props) {
     super()
     this.state = {
       loaded: false,
-    }
+    };
   }
 
   componentDidMount() {
@@ -90,18 +91,16 @@ class App extends Component {
 
             <nav>
               <Link className="navBar" to="/">Home</Link>
-              <Link className="navBar" to="/uploading">Uploading</Link>
-              <Link className="navBar" to="/create">Create</Link>
+              <Link className="navBar" to="/projects">Projects</Link>
               <Link className="navBar" to="/logout">Logout</Link>
-              {/* <Link className="navBar" to="/projects">Projects</Link> */}
-              {/* <Link className="navBar" to="/profile">Profile</Link> */}
             </nav>
 
             <Switch>
-              <Route path="/uploading" component={Uploading} />
+              <Route path="/projects" component={Projects} />
+              {/* <Route path="/upload" component={Upload} /> */}
               <Route path="/create" component={Create} />
               <Route exact path="/logout" component={Logout} />
-              <Route exact path="/" component={Home} />
+              <Route exact path="/" component={Welcome} />
             </Switch>
 
           </div>

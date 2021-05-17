@@ -38,9 +38,7 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="App">
-      <header className="App-header">
-
+      <div className="page">
       <div className="container">
 
         <h1>Login</h1>
@@ -68,7 +66,6 @@ class Login extends Component {
         </form>
       </div>
 
-      </header>
       </div>
     );
   }

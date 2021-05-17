@@ -48,10 +48,8 @@ class Signup extends Component {
 
     render() {
       return (
-        <div className="App">
-        <header className="App-header">
-
-        <div className="container">
+        <div className="page">
+          <div className="container">
 
           <h1>Sign Up</h1>
 
@@ -95,9 +93,8 @@ class Signup extends Component {
               <button type="submit">Sign Up</button>
             </div>
           </form>
-        </div>
+            </div>
 
-        </header>
         </div>
       );
     }
