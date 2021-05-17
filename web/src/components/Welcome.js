@@ -9,22 +9,24 @@ class Welcome extends Component {
 
       <div className="App">
         <header className="App-header">
-          
+
           {/* <img src={logo} className="App-logo" alt="logo" /> */}
-          <h3>
-            Welcome back to eARth, Here you can upload your very own 3D Augmented Reality(AR) models and customize them and then use them in our AR app.
+          <h3 style={{margin: "0 10rem 5rem 10rem"}}>
+            Welcome back to eARth. Here, you can create your very own 3D AR (augmented reality) models, and then use them in our AR app.
           </h3>
 
-          <p>To get started you can either create a model or upload an existing model.</p>
+          {/* <p>To get started you can either create a model or upload an existing model.</p> */}
 
           <div>
             <Link to="/create">
-            <button>Create</button>
+            <button>Create New Project</button>
             </Link>
-            <p>Or</p>
-            <Link to="/uploading">
+
+            {/* <p>Or</p>
+
+            <Link to="/upload">
             <button>Upload</button>
-            </Link>
+            </Link> */}
           </div>
         </header>
       </div>
