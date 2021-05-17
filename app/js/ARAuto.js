@@ -75,12 +75,6 @@ export default class ARAuto extends Component {
             animation={{ name: 'rotate', run: true, loop: true }}
           />
         )}
-        {/* <ViroBox
-          position={[0, -0.5, -1]}
-          scale={[0.3, 0.3, 0.3]}
-          materials={'takashi'}
-          animation={{ name: 'rotate', run: true, loop: true }}
-        /> */}
         <ViroSound
           paused={false}
           muted={false}
