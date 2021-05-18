@@ -58,7 +58,7 @@ export default class HelloWorldSceneAR extends Component {
         <ViroSound
           paused={false}
           muted={false}
-          source={'takashiSoundTest'}
+          source={require('./res/kiseru.mp3')}
           loop={true}
           volume={1.0}
         />
