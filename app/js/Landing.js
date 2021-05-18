@@ -7,7 +7,8 @@ import {
   Image,
   ScrollView,
 } from "react-native";
-import { ViroARSceneNavigator } from "react-viro";
+
+
 
 const models = [
   {
@@ -76,7 +77,7 @@ export default class AppLanding extends Component {
   }
 //componentDidMount 
   handlePress(){
-    this.state.selected = 
+    this.setState({selcted:  })
   }
 
   render() {
@@ -86,7 +87,7 @@ export default class AppLanding extends Component {
         <Text style={styles.titleText}>Select an Experience</Text>
         <ScrollView>
           {models.map((model) => (
-            <View key={model.id} style={styles.card} >
+            <View key={model.id} style={styles.card} onPress={() => }>
               <Text style={styles.titleText}>{model.name}</Text>
               <Text>{model.artist}</Text>
               <Text>{model.description}</Text>
