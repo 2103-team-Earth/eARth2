@@ -10,6 +10,7 @@ import {
   ViroText,
   ViroConstants,
   ViroBox,
+  ViroSound,
   ViroSphere,
   ViroMaterials,
   ViroAmbientLight,
@@ -34,9 +35,9 @@ export default class ChooseBase extends Component {
     return (
       <ViroARScene>
         <ViroARPlaneSelector>
-          <ViroAmbientLight color='#d3d3d3' intensity={150} />
+          <ViroAmbientLight color='#ffffff' intensity={150} />
           <ViroDirectionalLight
-            color='#d3d3d3'
+            color='#ffffff'
             direction={[0.5, -1, 0.5]}
             castsShadow={true}
           />
@@ -48,10 +49,17 @@ export default class ChooseBase extends Component {
           style={styles.helloWorldTextStyle}
         /> */}
           <ViroSphere
-            position={[0, -0.5, -1]}
-            scale={[0.3, 0.3, 0.3]}
-            materials={['lightgrey']}
+            position={[0, 0.25, 0]}
+            scale={[0.5, 0.5, 0.5]}
+            materials={['JMB']}
             animation={{ name: 'rotate', run: true, loop: true }}
+          />
+          <ViroSound
+            paused={false}
+            muted={false}
+            source={require('./res/SlippingIntoDarkness.mp3')}
+            loop={true}
+            volume={1.0}
           />
         </ViroARPlaneSelector>
       </ViroARScene>
@@ -70,8 +78,8 @@ export default class ChooseBase extends Component {
 }
 
 ViroMaterials.createMaterials({
-  lightgrey: {
-    diffuseColor: '#d3d3d3',
+  JMB: {
+    diffuseTexture: require('./res/JMB1.png'),
     lightingModel: 'Blinn',
   },
 });
@@ -79,7 +87,7 @@ ViroMaterials.createMaterials({
 ViroAnimations.registerAnimations({
   rotate: {
     properties: {
-      rotateY: '+=45',
+      rotateY: '-=45',
     },
     duration: 2000,
   },

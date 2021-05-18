@@ -10,6 +10,7 @@ import {
   ViroText,
   ViroConstants,
   ViroBox,
+  ViroSound,
   ViroSphere,
   ViroMaterials,
   ViroARTrackingTargets,
@@ -45,10 +46,17 @@ export default class ChooseImage extends Component {
           style={styles.helloWorldTextStyle}
         /> */}
           <ViroSphere
-            position={[0, -0.5, -1]}
-            scale={[0.3, 0.3, 0.3]}
-            materials={['lightgrey']}
+            position={[0, 0.25, -2]}
+            scale={[0.3, 0.3, 0]}
+            materials={['Champloo']}
             animation={{ name: 'rotate', run: true, loop: true }}
+          />
+          <ViroSound
+            paused={false}
+            muted={false}
+            source={require('./res/streetsigns.mp3')}
+            loop={true}
+            volume={1.0}
           />
         </ViroARImageMarker>
       </ViroARScene>
@@ -68,16 +76,23 @@ export default class ChooseImage extends Component {
 
 ViroARTrackingTargets.createTargets({
   frame: {
-    source: require('./res/test1.png'),
+    source: require('./res/test5.png'),
     orientation: 'Up',
     physicalWidth: 0.1,
+  },
+});
+
+ViroMaterials.createMaterials({
+  Champloo: {
+    diffuseTexture: require('./res/Champloo.png'),
+    lightingModel: 'Blinn',
   },
 });
 
 ViroAnimations.registerAnimations({
   rotate: {
     properties: {
-      rotateY: '+=45',
+      rotateX: '+=45',
     },
     duration: 2000,
   },
