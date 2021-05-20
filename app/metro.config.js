@@ -33,8 +33,5 @@ module.exports = (async () => {
         "gif",
       ],
     },
-    externals: {
-      react: "React",
-    },
   };
 })();

@@ -27,11 +27,6 @@ export class Login extends Component {
   }
 }
 
-//do I need this?
-// const mapState = (state) => ({
-//   nav: state.navigation,
-// });
-
 const mapDispatch = (dispatch) => ({
   setNavType: (type) => dispatch(setNavigation(type)),
 });

@@ -1,9 +1,19 @@
 import React, { Component } from "react";
-//may need to change TouchableOpacity to TouchableHighlight
-import { Text, View, TouchableOpacity, ScrollView } from "react-native";
+import {
+  Text,
+  Image,
+  View,
+  TouchableHighlight,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { connect } from "react-redux";
 import styles from "./Stylesheet";
-import { setNavigation, AR_NAVIGATOR_TYPE } from "./redux/navigation";
+import {
+  setNavigation,
+  AR_NAVIGATOR_TYPE,
+  PROFILE_TYPE,
+} from "./redux/navigation";
 
 //dummyModels
 const models = [
@@ -73,13 +83,13 @@ export class Explore extends Component {
     return (
       <View style={styles.inner}>
         <Image style={styles.tinyLogo} source={require("./res/eARth.png")} />
-        <Text style={styles.titleText}>Select an Experience:</Text>
+        <Text style={styles.titleText}>Explore other experiences:</Text>
         <ScrollView>
           {models.map((model) => (
             <TouchableOpacity
               key={model.id}
               style={styles.card}
-              onPress={this.props.setNavType(AR_NAVIGATOR_TYPE)}
+              onPress={() => this.props.setNavType(AR_NAVIGATOR_TYPE)}
             >
               <Text style={styles.titleText}>{model.name}</Text>
               <Text>{model.artist}</Text>
@@ -87,6 +97,12 @@ export class Explore extends Component {
             </TouchableOpacity>
           ))}
         </ScrollView>
+        <TouchableHighlight
+          style={styles.buttons}
+          onPress={() => this.props.setNavType(PROFILE_TYPE)}
+        >
+          <Text style={styles.buttonText}>Your Profile </Text>
+        </TouchableHighlight>
       </View>
     );
   }

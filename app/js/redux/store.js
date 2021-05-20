@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from "redux";
 // import axios from "axios";
 import rootReducer from "./index";
-import thunk from "redux-thunk";
+import thunk from "redux-thunk"; // for when we need it
 
 const middleware = [thunk];
 

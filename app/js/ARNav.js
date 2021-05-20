@@ -18,7 +18,7 @@ export class ARNav extends Component {
 
           <TouchableHighlight
             style={styles.buttons}
-            onPress={this.props.setNavType(AUTO_AR)}
+            onPress={() => this.props.setNavType(AUTO_AR)}
             underlayColor={"#68a0ff"}
           >
             <Text style={styles.buttonText}>AUTOMATIC</Text>
@@ -26,7 +26,7 @@ export class ARNav extends Component {
 
           <TouchableHighlight
             style={styles.buttons}
-            onPress={this.props.setNavType(AR_PLANE_SELECTOR)}
+            onPress={() => this.props.setNavType(AR_PLANE_SELECTOR)}
             underlayColor={"#68a0ff"}
           >
             <Text style={styles.buttonText}>CHOOSE BASE</Text>
@@ -34,7 +34,7 @@ export class ARNav extends Component {
 
           <TouchableHighlight
             style={styles.buttons}
-            onPress={this.props.setNavType(AR_IMAGE_MARKER)}
+            onPress={() => this.props.setNavType(AR_IMAGE_MARKER)}
             underlayColor={"#68a0ff"}
           >
             <Text style={styles.buttonText}>FIND IMAGE</Text>
@@ -45,13 +45,12 @@ export class ARNav extends Component {
   }
 }
 
-//not sure if we need this
-// const mapState = (state) => ({
-//   models: state.models,
-// });
+const mapState = (state) => ({
+  navType: state.navigation.navigationType,
+});
 
 const mapDispatch = (dispatch) => ({
   setNavType: (type) => dispatch(setNavigation(type)),
 });
 
-export default connect(null, mapDispatch)(ARNav);
+export default connect(mapState, mapDispatch)(ARNav);

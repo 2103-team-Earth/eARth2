@@ -1,8 +1,19 @@
 import React, { Component } from "react";
-import { Text, View, TouchableOpacity, ScrollView, Image } from "react-native";
+import {
+  Text,
+  View,
+  TouchableHighlight,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+} from "react-native";
 import { connect } from "react-redux";
 import styles from "./Stylesheet";
-import { setNavigation, AR_NAVIGATOR_TYPE } from "./redux/navigation";
+import {
+  setNavigation,
+  AR_NAVIGATOR_TYPE,
+  EXPLORE_TYPE,
+} from "./redux/navigation";
 
 //dummyModels
 const models = [
@@ -42,24 +53,6 @@ const models = [
     artist: "Team Earth",
     description: "The best planet",
   },
-  {
-    id: 7,
-    name: "The Sphere",
-    artist: "Team Earth",
-    description: "The best planet",
-  },
-  {
-    id: 8,
-    name: "The Sphere",
-    artist: "Team Earth",
-    description: "The best planet",
-  },
-  {
-    id: 9,
-    name: "The Sphere",
-    artist: "Team Earth",
-    description: "The best planet",
-  },
 ];
 export class Profile extends Component {
   constructor() {
@@ -69,7 +62,7 @@ export class Profile extends Component {
   //componentDidMount for USERS models from FB
   handlePress() {
     console.log("We handling presses and such");
-    this.props.setNavType(AR_NAVIGATOR_TYPE);
+
     console.log(this.props);
   }
   render() {
@@ -82,7 +75,7 @@ export class Profile extends Component {
             <TouchableOpacity
               key={model.id}
               style={styles.card}
-              onPress={this.handlePress}
+              onPress={() => this.props.setNavType(AR_NAVIGATOR_TYPE)}
             >
               <Text style={styles.titleText}>{model.name}</Text>
               <Text>{model.artist}</Text>
@@ -90,6 +83,12 @@ export class Profile extends Component {
             </TouchableOpacity>
           ))}
         </ScrollView>
+        <TouchableHighlight
+          style={styles.buttons}
+          onPress={() => this.props.setNavType(EXPLORE_TYPE)}
+        >
+          <Text style={styles.buttonText}>Explore </Text>
+        </TouchableHighlight>
       </View>
     );
   }
