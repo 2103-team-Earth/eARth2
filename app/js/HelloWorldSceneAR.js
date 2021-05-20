@@ -34,6 +34,7 @@ export default class HelloWorldSceneAR extends Component {
 
   render() {
     const { projects } = this.props;
+    console.dir(ViroSound);
     return (
       <ViroARScene onTrackingUpdated={this._onInitialized}>
         <ViroAmbientLight color='#ffffff' intensity={150} />
@@ -53,12 +54,15 @@ export default class HelloWorldSceneAR extends Component {
           position={[0, -0.5, -1]}
           scale={[0.3, 0.3, 0.3]}
           materials={'takashi'}
-          animation={{ name: 'rotate', run: true, loop: true }}
+          animation={{ name: 'jump', run: true, loop: true }}
         />
         <ViroSound
           paused={false}
           muted={false}
-          source={require('./res/kiseru.mp3')}
+          source={'takashiSoundTest'}
+          // onError={(error) => {
+          //   console.log(error);
+          // }}
           loop={true}
           volume={1.0}
         />
@@ -85,18 +89,55 @@ ViroMaterials.createMaterials({
 });
 
 ViroAnimations.registerAnimations({
-  rotate: {
+  spin: {
     properties: {
       rotateY: '+=45',
     },
     duration: 2000,
   },
+  forward: {
+    properties: {
+      rotateX: '+=45',
+    },
+    duration: 2000,
+  },
+  backward: {
+    properties: {
+      rotateX: '-=45',
+    },
+    duration: 2000,
+  },
+  frontFlip: {
+    properties: {
+      rotateX: '+=360',
+    },
+    easing: 'EaseInEaseOut',
+    duration: 1000,
+  },
+  sit: {
+    properties: {
+      positionY: -0.5,
+    },
+    duration: 1000,
+  },
+  jumpUp: {
+    properties: {
+      positionY: '+=1',
+    },
+    duration: 1000,
+  },
+  delayAnimation: {
+    delay: 4000,
+  },
+  jump: [['sit', 'jumpUp', 'sit'], ['delayAnimation']],
+  flip: [['frontFlip'], ['delayAnimation']],
 });
 
 ViroSound.preloadSounds({
   takashiSoundTest:
-    'https://firebasestorage.googleapis.com/v0/b/earth-a2ce0.appspot.com/o/sounds%2FLong%20Distance%20Groove%20-%20Blue%20-%2003%20Indigo.mp3?alt=media',
-});
+    'https://firebasestorage.googleapis.com/v0/b/earth-a2ce0.appspot.com/o/sounds%2FLong%20Distance%20Groove%20-%20Blue%20-%2003%20Indigo.mp3?alt=media&lol=.mp3',
+  takashiWorking: 'http://www.kozco.com/tech/32.mp3',
+}).then(console.log);
 
 var styles = StyleSheet.create({
   helloWorldTextStyle: {

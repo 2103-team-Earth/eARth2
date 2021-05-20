@@ -32,24 +32,23 @@ export default class ChooseImage extends Component {
     return (
       <ViroARScene>
         <ViroARImageMarker target={'frame'}>
-          <ViroAmbientLight color='#d3d3d3' intensity={150} />
+          <ViroAmbientLight color='#ffffff' intensity={150} />
           <ViroDirectionalLight
-            color='#d3d3d3'
+            color='#ffffff'
             direction={[0.5, -1, 0.5]}
             castsShadow={true}
           />
-
-          {/* <ViroText
-          text={this.state.text}
-          scale={[0.25, 0.25, 0.25]}
-          position={[0, 0, -1]}
-          style={styles.helloWorldTextStyle}
-        /> */}
+          <ViroText
+            text={this.state.text}
+            scale={[0.25, 0.25, 0.25]}
+            position={[0, 0, -1]}
+            style={styles.helloWorldTextStyle}
+          />
           <ViroSphere
             position={[0, 0.25, -2]}
             scale={[0.3, 0.3, 0]}
             materials={['Champloo']}
-            animation={{ name: 'rotate', run: true, loop: true }}
+            animation={{ name: 'spin', run: true, loop: true }}
           />
           <ViroSound
             paused={false}
@@ -66,7 +65,7 @@ export default class ChooseImage extends Component {
   _onInitialized(state, reason) {
     if (state == ViroConstants.TRACKING_NORMAL) {
       this.setState({
-        text: '',
+        text: 'Champloo',
       });
     } else if (state == ViroConstants.TRACKING_NONE) {
       // Handle loss of tracking
@@ -90,9 +89,9 @@ ViroMaterials.createMaterials({
 });
 
 ViroAnimations.registerAnimations({
-  rotate: {
+  spin: {
     properties: {
-      rotateX: '+=45',
+      rotateY: '+=45',
     },
     duration: 2000,
   },
