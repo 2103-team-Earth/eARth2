@@ -63,13 +63,15 @@ export const setNavigation = (type) => {
 // };
 
 //initial State
-const navigationType = UNSET;
+const initialState = {
+  navigationType: UNSET,
+};
 
 //reducer
-export default function navigationReducer(state = navigationType, action) {
+export default function navigationReducer(state = initialState, action) {
   switch (action.type) {
     case action.type:
-      return action.type;
+      return { ...state, navigationType: action.type };
     default:
       return state;
   }

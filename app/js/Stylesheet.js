@@ -53,4 +53,16 @@ export default styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#fff",
   },
+  tinyLogo: {
+    height: 100,
+    width: 200,
+    resizeMode: "contain",
+  },
+  card: {
+    borderRadius: 20,
+    overflow: "hidden",
+    borderColor: "black",
+    borderWidth: 1,
+    backgroundColor: "white",
+  },
 });

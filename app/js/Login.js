@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Text, View, TouchableHighlight } from "react-native";
+import { Text, View, TouchableHighlight, TextInput } from "react-native";
 import { connect } from "react-redux";
 import styles from "./Stylesheet";
-import { setNavigation, AR_NAVIGATOR_TYPE } from "../redux/navigation";
+import { setNavigation, PROFILE_TYPE } from "./redux/navigation";
 
-export default class Login extends Component {
+export class Login extends Component {
   render() {
     return (
       <View style={styles.outer}>
@@ -16,7 +16,7 @@ export default class Login extends Component {
           <TextInput style={styles.input} placeholder="password" />
           <TouchableHighlight
             style={styles.buttons}
-            onPress={this.props.setNavType(AR_NAVIGATOR_TYPE)}
+            onPress={() => this.props.setNavType(PROFILE_TYPE)}
             underlayColor={"#68A0FF"}
           >
             <Text style={styles.buttonText}>Login</Text>
