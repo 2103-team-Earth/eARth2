@@ -1,9 +1,9 @@
 'use strict';
 
 import React, { Component } from 'react';
-
-import { StyleSheet } from 'react-native';
-
+// import { connect } from "react-redux";
+import { StyleSheet, TouchableHighlight, Text } from 'react-native';
+// import { setNavigation, PROFILE_TYPE } from "./redux/navigation";
 import {
   ViroARScene,
   ViroARImageMarker,
@@ -18,6 +18,7 @@ import {
   ViroDirectionalLight,
   ViroAnimations,
 } from 'react-viro';
+// import styles from "./Stylesheet";
 
 export default class ChooseImage extends Component {
   constructor() {
@@ -29,6 +30,7 @@ export default class ChooseImage extends Component {
   }
 
   render() {
+    const { project } = this.props;
     return (
       <ViroARScene>
         <ViroARImageMarker target={'frame'}>
@@ -44,12 +46,29 @@ export default class ChooseImage extends Component {
             position={[0, 0, -1]}
             style={styles.helloWorldTextStyle}
           />
-          <ViroSphere
-            position={[0, 0.25, -2]}
-            scale={[0.3, 0.3, 0]}
-            materials={['Champloo']}
-            animation={{ name: 'spin', run: true, loop: true }}
-          />
+          {project.shape.cube ? (
+            <ViroBox
+              position={[0, -0.5, -1]}
+              scale={[
+                project.shapeScaleX,
+                project.shapeScaleY,
+                project.shapeScaleZ,
+              ]}
+              materials={project.color ? this.myColorKey : this.myTextureKey}
+              animation={{ name: project.animation, run: true, loop: true }}
+            />
+          ) : (
+            <ViroSphere
+              position={[0, -0.5, -1]}
+              scale={[
+                project.shapeScaleX,
+                project.shapeScaleY,
+                project.shapeScaleZ,
+              ]}
+              materials={project.color ? this.myColorKey : this.myTextureKey}
+              animation={{ name: project.animation, run: true, loop: true }}
+            />
+          )}
           <ViroSound
             paused={false}
             muted={false}
@@ -75,7 +94,7 @@ export default class ChooseImage extends Component {
 
 ViroARTrackingTargets.createTargets({
   frame: {
-    source: require('./res/test5.png'),
+    source: require('./res/fsalogo.png'),
     orientation: 'Up',
     physicalWidth: 0.1,
   },
@@ -95,6 +114,42 @@ ViroAnimations.registerAnimations({
     },
     duration: 2000,
   },
+  forward: {
+    properties: {
+      rotateX: '+=45',
+    },
+    duration: 2000,
+  },
+  backward: {
+    properties: {
+      rotateX: '-=45',
+    },
+    duration: 2000,
+  },
+  frontFlip: {
+    properties: {
+      rotateX: '+=360',
+    },
+    easing: 'EaseInEaseOut',
+    duration: 1000,
+  },
+  sit: {
+    properties: {
+      positionY: -0.5,
+    },
+    duration: 1000,
+  },
+  jumpUp: {
+    properties: {
+      positionY: '+=1',
+    },
+    duration: 1000,
+  },
+  delayAnimation: {
+    delay: 4000,
+  },
+  jump: [['sit', 'jumpUp', 'sit'], ['delayAnimation']],
+  flip: [['frontFlip'], ['delayAnimation']],
 });
 
 var styles = StyleSheet.create({
@@ -106,5 +161,3 @@ var styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
-module.exports = ChooseImage;
