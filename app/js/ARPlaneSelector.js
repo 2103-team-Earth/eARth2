@@ -52,7 +52,7 @@ export default class ChooseBase extends Component {
             position={[0, 0.25, 0]}
             scale={[0.5, 0.5, 0.5]}
             materials={['JMB']}
-            animation={{ name: 'rotate', run: true, loop: true }}
+            animation={{ name: 'spin', run: true, loop: true }}
           />
           <ViroSound
             paused={false}
@@ -85,7 +85,7 @@ ViroMaterials.createMaterials({
 });
 
 ViroAnimations.registerAnimations({
-  rotate: {
+  spin: {
     properties: {
       rotateY: '-=45',
     },

@@ -4,11 +4,8 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import {
   ViroARScene,
-  ViroNode,
-  ViroARPlaneSelector,
   preloadSounds,
   ViroSound,
-  ViroSpatialSound,
   ViroText,
   ViroConstants,
   ViroBox,
@@ -31,56 +28,70 @@ export default class ARAuto extends Component {
     // bind 'this' to functions
     this._onInitialized = this._onInitialized.bind(this);
   }
+  componentDidMount() {
+    const { project } = this.props;
+    this.myColorKey = `myColor ${Date.now()}`;
+    this.myTextureKey = `myTexture ${Date.now()}`;
+    ViroMaterials.createMaterials({
+      [this.myColorKey]: {
+        diffuseColor: project.color,
+        lightingModel: 'Blinn',
+      },
+      [this.myTextureKey]: {
+        diffuseTexture: require(project.texture),
+        lightingModel: 'Blinn',
+      },
+    });
+  }
 
   render() {
-    const { projects } = this.props;
+    const { project } = this.props;
     return (
       <ViroARScene onTrackingUpdated={this._onInitialized}>
-        <ViroAmbientLight color={projects.color} intensity={150} />
+        <ViroAmbientLight color='#ffffff' intensity={150} />
         <ViroDirectionalLight
-          color={projects.color}
+          color='#ffffff'
           direction={[0.5, -1, 0.5]}
           castsShadow={true}
         />
         <ViroText
           text={this.state.text}
-          scale={[
-            projects.textScaleX,
-            projects.textScaleY,
-            projects.textScaleZ,
-          ]}
+          scale={[project.textScaleX, project.textScaleY, project.textScaleZ]}
           position={[0, 0, -1]}
           style={styles.helloWorldTextStyle}
         />
-        {projects.shape.cube ? (
+        {project.shape.cube ? (
           <ViroBox
             position={[0, -0.5, -1]}
             scale={[
-              projects.shapeScaleX,
-              projects.shapeScaleY,
-              projects.shapeScaleZ,
+              project.shapeScaleX,
+              project.shapeScaleY,
+              project.shapeScaleZ,
             ]}
-            materials={'takashi'}
-            animation={{ name: 'rotate', run: true, loop: true }}
+            materials={project.color ? this.myColorKey : this.myTextureKey}
+            animation={{ name: project.animation, run: true, loop: true }}
           />
         ) : (
           <ViroSphere
             position={[0, -0.5, -1]}
             scale={[
-              projects.shapeScaleX,
-              projects.shapeScaleY,
-              projects.shapeScaleZ,
+              project.shapeScaleX,
+              project.shapeScaleY,
+              project.shapeScaleZ,
             ]}
-            materials={'takashi'}
-            animation={{ name: 'rotate', run: true, loop: true }}
+            materials={project.color ? this.myColorKey : this.myTextureKey}
+            animation={{ name: project.animation, run: true, loop: true }}
           />
         )}
         <ViroSound
           paused={false}
           muted={false}
+          // if audioUrl isn't working will have to use project.sound as source for audio files
           source={'takashiSoundTest'}
           loop={true}
-          // onError={console.error(ViroSound)}
+          // onError={(error) => {
+          //   console.log(error);
+          // }}
           volume={1.0}
         />
         {/* <ViroSpatialSound
@@ -101,7 +112,7 @@ export default class ARAuto extends Component {
   _onInitialized(state, reason) {
     if (state == ViroConstants.TRACKING_NORMAL) {
       this.setState({
-        text: '',
+        text: projects.text,
       });
     } else if (state == ViroConstants.TRACKING_NONE) {
       // Handle loss of tracking
@@ -109,20 +120,49 @@ export default class ARAuto extends Component {
   }
 }
 
-ViroMaterials.createMaterials({
-  takashi: {
-    diffuseTexture: require('./res/takashiZen2.png'),
-    lightingModel: 'Blinn',
-  },
-});
-
 ViroAnimations.registerAnimations({
-  rotate: {
+  spin: {
     properties: {
       rotateY: '+=45',
     },
     duration: 2000,
   },
+  forward: {
+    properties: {
+      rotateX: '+=45',
+    },
+    duration: 2000,
+  },
+  backward: {
+    properties: {
+      rotateX: '-=45',
+    },
+    duration: 2000,
+  },
+  frontFlip: {
+    properties: {
+      rotateX: '+=360',
+    },
+    easing: 'EaseInEaseOut',
+    duration: 1000,
+  },
+  sit: {
+    properties: {
+      positionY: -0.5,
+    },
+    duration: 1000,
+  },
+  jumpUp: {
+    properties: {
+      positionY: '+=1',
+    },
+    duration: 1000,
+  },
+  delayAnimation: {
+    delay: 4000,
+  },
+  jump: [['sit', 'jumpUp', 'sit'], ['delayAnimation']],
+  flip: [['frontFlip'], ['delayAnimation']],
 });
 
 ViroSound.preloadSounds({
