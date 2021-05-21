@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-import React, { Component } from 'react';
-
-import { StyleSheet } from 'react-native';
-
+import React, { Component } from "react";
+// import { connect } from "react-redux";
+import { StyleSheet, TouchableHighlight, Text } from "react-native";
+// import { setNavigation, PROFILE_TYPE } from "./redux/navigation";
 import {
   ViroARScene,
   ViroARImageMarker,
@@ -17,24 +17,25 @@ import {
   ViroAmbientLight,
   ViroDirectionalLight,
   ViroAnimations,
-} from 'react-viro';
+} from "react-viro";
+// import styles from "./Stylesheet";
 
 export default class ChooseImage extends Component {
   constructor() {
     super();
     // Set initial state here
     this.state = {
-      text: '',
+      text: "",
     };
   }
 
   render() {
     return (
       <ViroARScene>
-        <ViroARImageMarker target={'frame'}>
-          <ViroAmbientLight color='#d3d3d3' intensity={150} />
+        <ViroARImageMarker target={"frame"}>
+          <ViroAmbientLight color="#d3d3d3" intensity={150} />
           <ViroDirectionalLight
-            color='#d3d3d3'
+            color="#d3d3d3"
             direction={[0.5, -1, 0.5]}
             castsShadow={true}
           />
@@ -48,13 +49,13 @@ export default class ChooseImage extends Component {
           <ViroSphere
             position={[0, 0.25, -2]}
             scale={[0.3, 0.3, 0]}
-            materials={['Champloo']}
-            animation={{ name: 'rotate', run: true, loop: true }}
+            materials={["Champloo"]}
+            animation={{ name: "rotate", run: true, loop: true }}
           />
           <ViroSound
             paused={false}
             muted={false}
-            source={require('./res/streetsigns.mp3')}
+            source={require("./res/streetsigns.mp3")}
             loop={true}
             volume={1.0}
           />
@@ -66,7 +67,7 @@ export default class ChooseImage extends Component {
   _onInitialized(state, reason) {
     if (state == ViroConstants.TRACKING_NORMAL) {
       this.setState({
-        text: '',
+        text: "",
       });
     } else if (state == ViroConstants.TRACKING_NONE) {
       // Handle loss of tracking
@@ -76,23 +77,23 @@ export default class ChooseImage extends Component {
 
 ViroARTrackingTargets.createTargets({
   frame: {
-    source: require('./res/test5.png'),
-    orientation: 'Up',
+    source: require("./res/fsalogo.png"),
+    orientation: "Up",
     physicalWidth: 0.1,
   },
 });
 
 ViroMaterials.createMaterials({
   Champloo: {
-    diffuseTexture: require('./res/Champloo.png'),
-    lightingModel: 'Blinn',
+    diffuseTexture: require("./res/Champloo.png"),
+    lightingModel: "Blinn",
   },
 });
 
 ViroAnimations.registerAnimations({
   rotate: {
     properties: {
-      rotateX: '+=45',
+      rotateX: "+=45",
     },
     duration: 2000,
   },
@@ -100,12 +101,10 @@ ViroAnimations.registerAnimations({
 
 var styles = StyleSheet.create({
   helloWorldTextStyle: {
-    fontFamily: 'Arial',
+    fontFamily: "Arial",
     fontSize: 30,
-    color: '#ffffff',
-    textAlignVertical: 'center',
-    textAlign: 'center',
+    color: "#ffffff",
+    textAlignVertical: "center",
+    textAlign: "center",
   },
 });
-
-module.exports = ChooseImage;
