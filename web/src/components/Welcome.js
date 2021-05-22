@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import '../App.css';
 import { Link } from "react-router-dom";
-
+import logo from "../assets/eARTh.png";
 
 class Welcome extends Component {
   render() {
@@ -10,7 +10,7 @@ class Welcome extends Component {
       <div className="App">
         <header className="App-header">
           
-          {/* <img src={logo} className="App-logo" alt="logo" /> */}
+        <img src={logo}  alt="logo" />
           <h3>
             Welcome back to eARth, Here you can upload your very own 3D Augmented Reality(AR) models and customize them and then use them in our AR app.
           </h3>

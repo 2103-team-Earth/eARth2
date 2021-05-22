@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { SketchPicker } from 'react-color';
-
+import { Cube } from "../3DFolder/Cube"
+import { Sphere } from "../3DFolder/Sphere"
 
 
 export class Shape extends Component {
@@ -19,7 +20,11 @@ export class Shape extends Component {
           lightingModel: "Blinn",
           diffuseTexture: {},
           audio: "",
-          view: "shape"
+          view: "shape",
+          material: 'https://threejsfundamentals.org/threejs/resources/images/wall.jpg',
+          colorOrTexture: 'color',
+          imageMarker: 'no',
+          targetImage: ''
           }
     		
     		this.handleChange = this.handleChange.bind(this);
@@ -47,8 +52,10 @@ export class Shape extends Component {
 
         render() {
             const {handleSubmit, handleChange, handleChangeColor} = this
-            const {animation, shape, colorSelected, animate, name, shapeScaleX, shapeScaleY, shapeScaleZ, audio} = this.state
+            const {animation, shape, colorSelected, animate, name, shapeScaleX, shapeScaleY, shapeScaleZ, audio, colorOrTexture, material, imageMarker, targetImage} = this.state
             return (
+                <div>
+                {shape === "sphere" ? (<Sphere data={this.state}/>) : (<div><Cube data={this.state} /></div>)}
                 <div className="App">
                 <header className="App-header">
 
@@ -81,7 +88,14 @@ export class Shape extends Component {
                     </label>
                     </div>
 
-                    <div className="colors">
+                    <div className="colorOrTexture">
+                    <h5>Would you like your model to have a color or a specific image material wrapped over it? </h5>
+                    <select  id="dropbown" name="colorOrTexture" onChange={handleChange} value={colorOrTexture}>
+                        <option value="color">Color</option>
+                        <option value="material">Material</option>
+                    </select>
+                    </div>
+                    {this.state.colorOrTexture === "color" ? (   <div className="colors">
                     <h3>Select A Color:</h3>
                     <label htmlFor="color" >Color: {colorSelected}
                     <SketchPicker
@@ -89,14 +103,20 @@ export class Shape extends Component {
                     onChangeComplete={handleChangeColor} 
                      />
                     </label>
-                    </div>
+                    </div>) :
+                    (    <div className="materials">
+                    <label htmlFor="material" >
+                    <label> Insert an image URL to wrap over your object: </label>
+                    <input name="material" type="text" onChange={handleChange} value={material} />
+                    </label>
+                    </div> ) }
 
                     <div className="audio">
                     <label htmlFor="audio" >
-                    <label> Upload Audio: </label>
-                    <input name="audio" type="file" accept="audio/*" onChange={handleChange} value={audio} />
+                    <label> Insert a URL to a MP3 for a song to be attached to your model: </label>
+                    <input name="audio" type="text" onChange={handleChange} value={audio} />
                     </label>
-                    </div>
+                    </div> 
 
                     <div className="animations">
                     <h5>Would you like to animate your model?</h5>
@@ -120,6 +140,25 @@ export class Shape extends Component {
                     (<div>
                         <p>Your model will be static.</p>
                         </div>) }
+
+                        <div className="imageMarker">
+                    <h5>Would you like a image marker which you can scan to render your model?</h5>
+                    <select  id="dropbown" name="imageMarker" onChange={handleChange} value={imageMarker}>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                    </div>
+                    {this.state.imageMarker === "yes" ? (<div>
+                    <label htmlFor="targetImage">
+                    <label> Upload a target image which will render your 3D model once scanned: </label>
+                    <input name="targetImage" type="file" accept=".jpg, .jpeg, .png" onChange={handleChange} value={targetImage} />
+                    </label>
+                    </div>) :
+                    (<div>
+                    <small>You will be presented with three ways to render your model on our mobile app.</small>
+                    </div>) }
+
+
                     <div>
                     <button className="enter" type="submit">Submit</button>
                     </div>
@@ -127,6 +166,7 @@ export class Shape extends Component {
                 </div>
 
                 </header>
+                </div>
                 </div>
             );
             }

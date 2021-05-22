@@ -29,6 +29,7 @@
 } */
 
 .navBar {
+  width: 100%;
   margin: 40px;
   justify-content: space-between;
   text-decoration: none;
@@ -58,7 +59,9 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  /* height: 40vmin; */
+  height: 7%;
+  width: 7%;
   pointer-events: none;
 }
 

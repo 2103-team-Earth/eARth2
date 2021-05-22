@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { SketchPicker } from 'react-color';
-
+import { Dual } from "../3DFolder/Dual"
 
 
 export class Both extends Component {
@@ -12,8 +12,8 @@ export class Both extends Component {
           colorSelected: "#d3d3d3",
           animation: "no",
           animate: "rotate",
-          text: "",
-          textScaleX: 0.1,
+          text: "default",
+          textScaleX: 0.6,
           textScaleY: 0.1,
           textScaleZ: 0.1,
           shapeScaleX: 0.25,
@@ -27,7 +27,11 @@ export class Both extends Component {
           lightingModel: "Blinn",
           diffuseTexture: {},
           audio: "",
-          view: "both"
+          material: 'https://threejsfundamentals.org/threejs/resources/images/wall.jpg',
+          colorOrTexture: 'color',
+          view: "both",
+          imageMarker: 'no',
+          targetImage: ''
           }
     		
     		this.handleChange = this.handleChange.bind(this);
@@ -55,8 +59,10 @@ export class Both extends Component {
 
         render() {
             const {handleSubmit, handleChange, handleChangeColor} = this
-            const {animation, shape, colorSelected, animate, text, name, textScaleX, textScaleY, textScaleZ, shapeScaleX, shapeScaleY, shapeScaleZ, fontSize, audio} = this.state
+            const {animation, shape, colorSelected, animate, text, name, textScaleX, textScaleY, textScaleZ, shapeScaleX, shapeScaleY, shapeScaleZ, fontSize, audio, material, colorOrTexture, imageMarker, targetImage} = this.state
             return (
+                <div>
+                <Dual data={this.state}/>
                 <div className="App">
                 <header className="App-header">
                
@@ -112,8 +118,14 @@ export class Both extends Component {
                     </label>
                     </div>
 
-
-                    <div className="colors">
+                    <div className="colorOrTexture">
+                    <h5>Would you like your model to have a color or a specific image material wrapped over it? </h5>
+                    <select  id="dropbown" name="colorOrTexture" onChange={handleChange} value={colorOrTexture}>
+                        <option value="color">Color</option>
+                        <option value="material">Material</option>
+                    </select>
+                    </div>
+                    {this.state.colorOrTexture === "color" ? (   <div className="colors">
                     <h3>Select A Color:</h3>
                     <label htmlFor="color" >Color: {colorSelected}
                     <SketchPicker
@@ -121,15 +133,28 @@ export class Both extends Component {
                     onChangeComplete={handleChangeColor} 
                      />
                     </label>
-                    </div>
+                    </div>) :
+                    (    <div className="materials">
+                    <label htmlFor="material" >
+                    <label> Insert an image URL to wrap over your object: </label>
+                    <input name="material" type="text" onChange={handleChange} value={material} />
+                    </label>
+                    </div> ) }
 
 
-                    <div className="audio">
+                    {/* <div className="audio">
                     <label htmlFor="audio" >
                     <label> Upload Audio: </label>
                     <input name="audio" type="file" accept="audio/*" onChange={handleChange} value={audio} />
                     </label>
-                    </div>
+                    </div> */}
+                    
+                    <div className="audio">
+                    <label htmlFor="audio" >
+                    <label> Insert a URL to a MP3 for a song to be attached to your model: </label>
+                    <input name="audio" type="text" onChange={handleChange} value={audio} />
+                    </label>
+                    </div> 
 
                     <div className="animations">
                     <h5>Would you like to animate your model?</h5>
@@ -153,6 +178,26 @@ export class Both extends Component {
                     (<div>
                         <p>Your model will be static.</p>
                         </div>) }
+
+                    
+                    <div className="imageMarker">
+                    <h5>Would you like a image marker which you can scan to render your model?</h5>
+                    <select  id="dropbown" name="imageMarker" onChange={handleChange} value={imageMarker}>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                    </div>
+                    {this.state.imageMarker === "yes" ? (<div>
+                    <label htmlFor="targetImage">
+                    <label> Upload a target image which will render your 3D model once scanned: </label>
+                    <input name="targetImage" type="file" accept=".jpg, .jpeg, .png" onChange={handleChange} value={targetImage} />
+                    </label>
+                    </div>) :
+                    (<div>
+                    <small>You will be presented with three ways to render your model on our mobile app.</small>
+                    </div>) }
+                    
+
                     <div>
                     <button className="enter" type="submit">Submit</button>
                     </div>
@@ -160,6 +205,7 @@ export class Both extends Component {
                 </div>
 
                 </header>
+                </div>
                 </div>
             );
             }

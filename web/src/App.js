@@ -74,12 +74,13 @@ class App extends Component {
               <Link className="navBar" to="/signup">Sign Up</Link>
               <Link className="navBar" to="/login">Login</Link>
             </nav>
-
+          <nav >
             <Switch>
               <Route path="/signup" component={Signup} />
               <Route path="/login" component={Login} />
               <Route exact path="/" component={Home} />
             </Switch>
+            </nav>
 
           </div>
         </Router>

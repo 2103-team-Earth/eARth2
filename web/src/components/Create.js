@@ -5,6 +5,8 @@ import { Shape } from "./Shape"
 
 
 
+
+
 class Create extends Component {
     constructor(props) {
         super(props);
@@ -35,10 +37,11 @@ class Create extends Component {
                         <h5>Would you like to create a 3D Text model, Shape Model, or Both? </h5>
                         <label>  Text:  </label>
                         <input type="radio" id="text" name="view" onChange={handleChange} value="text" /> |
-                        <label>  Shape:  </label>
-                        <input type="radio" id="shape" name="view" onChange={handleChange} value="shape" /> |
                         <label>  Both:  </label>
-                        <input defaultChecked type="radio" id="both" name="view" onChange={handleChange} value="both" /> 
+                        <input defaultChecked type="radio" id="both" name="view" onChange={handleChange} value="both" /> |
+                        <label>  Shape:  </label>
+                        <input type="radio" id="shape" name="view" onChange={handleChange} value="shape" /> 
+                       
                     </div>
                     </form>
                     {view === "both" ? (<Both />) : (<div></div>)}
