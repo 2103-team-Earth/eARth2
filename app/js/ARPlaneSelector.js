@@ -1,9 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-
 import { StyleSheet } from 'react-native';
-
 import {
   ViroARScene,
   ViroARPlaneSelector,
@@ -31,7 +29,24 @@ export default class ChooseBase extends Component {
     this._onInitialized = this._onInitialized.bind(this);
   }
 
+  componentDidMount() {
+    const { project } = this.props;
+    this.myColorKey = `myColor ${Date.now()}`;
+    this.myTextureKey = `myTexture ${Date.now()}`;
+    ViroMaterials.createMaterials({
+      [this.myColorKey]: {
+        diffuseColor: project.color,
+        lightingModel: 'Blinn',
+      },
+      [this.myTextureKey]: {
+        diffuseTexture: require(project.texture),
+        lightingModel: 'Blinn',
+      },
+    });
+  }
+
   render() {
+    const { project } = this.props;
     return (
       <ViroARScene>
         <ViroARPlaneSelector>
@@ -41,19 +56,35 @@ export default class ChooseBase extends Component {
             direction={[0.5, -1, 0.5]}
             castsShadow={true}
           />
-
-          {/* <ViroText
-          text={this.state.text}
-          scale={[0.25, 0.25, 0.25]}
-          position={[0, 0, -1]}
-          style={styles.helloWorldTextStyle}
-        /> */}
-          <ViroSphere
-            position={[0, 0.25, 0]}
-            scale={[0.5, 0.5, 0.5]}
-            materials={['JMB']}
-            animation={{ name: 'spin', run: true, loop: true }}
+          <ViroText
+            text={this.state.text}
+            scale={[project.textScaleX, project.textScaleY, project.textScaleZ]}
+            position={[0, 0, -1]}
+            style={styles.helloWorldTextStyle}
           />
+          {project.shape.cube ? (
+            <ViroBox
+              position={[0, -0.5, -1]}
+              scale={[
+                project.shapeScaleX,
+                project.shapeScaleY,
+                project.shapeScaleZ,
+              ]}
+              materials={project.color ? this.myColorKey : this.myTextureKey}
+              animation={{ name: project.animation, run: true, loop: true }}
+            />
+          ) : (
+            <ViroSphere
+              position={[0, -0.5, -1]}
+              scale={[
+                project.shapeScaleX,
+                project.shapeScaleY,
+                project.shapeScaleZ,
+              ]}
+              materials={project.color ? this.myColorKey : this.myTextureKey}
+              animation={{ name: project.animation, run: true, loop: true }}
+            />
+          )}
           <ViroSound
             paused={false}
             muted={false}
@@ -87,10 +118,46 @@ ViroMaterials.createMaterials({
 ViroAnimations.registerAnimations({
   spin: {
     properties: {
-      rotateY: '-=45',
+      rotateY: '+=45',
     },
     duration: 2000,
   },
+  forward: {
+    properties: {
+      rotateX: '+=45',
+    },
+    duration: 2000,
+  },
+  backward: {
+    properties: {
+      rotateX: '-=45',
+    },
+    duration: 2000,
+  },
+  frontFlip: {
+    properties: {
+      rotateX: '+=360',
+    },
+    easing: 'EaseInEaseOut',
+    duration: 1000,
+  },
+  sit: {
+    properties: {
+      positionY: -0.5,
+    },
+    duration: 1000,
+  },
+  jumpUp: {
+    properties: {
+      positionY: '+=1',
+    },
+    duration: 1000,
+  },
+  delayAnimation: {
+    delay: 4000,
+  },
+  jump: [['sit', 'jumpUp', 'sit'], ['delayAnimation']],
+  flip: [['frontFlip'], ['delayAnimation']],
 });
 
 var styles = StyleSheet.create({
