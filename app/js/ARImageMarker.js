@@ -29,6 +29,22 @@ export default class ChooseImage extends Component {
     };
   }
 
+  componentDidMount() {
+    const { project } = this.props;
+    this.myColorKey = `myColor ${Date.now()}`;
+    this.myTextureKey = `myTexture ${Date.now()}`;
+    ViroMaterials.createMaterials({
+      [this.myColorKey]: {
+        diffuseColor: project.color,
+        lightingModel: 'Blinn',
+      },
+      [this.myTextureKey]: {
+        diffuseTexture: require(project.texture),
+        lightingModel: 'Blinn',
+      },
+    });
+  }
+
   render() {
     const { project } = this.props;
     return (
@@ -42,7 +58,7 @@ export default class ChooseImage extends Component {
           />
           <ViroText
             text={this.state.text}
-            scale={[0.25, 0.25, 0.25]}
+            scale={[project.textScaleX, project.textScaleY, project.textScaleZ]}
             position={[0, 0, -1]}
             style={styles.helloWorldTextStyle}
           />

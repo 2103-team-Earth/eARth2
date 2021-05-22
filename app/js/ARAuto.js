@@ -28,6 +28,7 @@ export default class ARAuto extends Component {
     // bind 'this' to functions
     this._onInitialized = this._onInitialized.bind(this);
   }
+
   componentDidMount() {
     const { project } = this.props;
     this.myColorKey = `myColor ${Date.now()}`;
@@ -94,17 +95,6 @@ export default class ARAuto extends Component {
           // }}
           volume={1.0}
         />
-        {/* <ViroSpatialSound
-          rolloffModel='linear'
-          paused={false}
-          muted={false}
-          minDistance={2}
-          maxDistance={5}
-          position={[0, -0.5, -1]}
-          source={'https://soundcloud.com/loosethakid/saturdaymorningcartoons'}
-          loop={true}
-          volume={1.0}
-        /> */}
       </ViroARScene>
     );
   }
