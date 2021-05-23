@@ -3,6 +3,8 @@ import Both from './Both';
 import Text from './Text';
 import Shape from './Shape';
 
+
+
 class Create extends Component {
   constructor(props) {
     super(props);
@@ -20,9 +22,28 @@ class Create extends Component {
     });
   }
 
-  render() {
-    const { handleChange } = this;
-    const { view } = this.state;
+            render() {
+            const {handleChange} = this
+            const { view } = this.state
+            return (
+                <div className="App">
+                <header className="App-header">
+                
+                <form className="views">
+                    <div >
+                        <h5>Would you like to create a 3D Text model, Shape Model, or Both? </h5>
+                        <label>  Text:  </label>
+                        <input type="radio" id="text" name="view" onChange={handleChange} value="text" /> |
+                        <label>  Both:  </label>
+                        <input defaultChecked type="radio" id="both" name="view" onChange={handleChange} value="both" /> |
+                        <label>  Shape:  </label>
+                        <input type="radio" id="shape" name="view" onChange={handleChange} value="shape" /> 
+                       
+                    </div>
+                    </form>
+                    {view === "both" ? (<Both />) : (<div></div>)}
+                    {view === "shape" ? (<Shape />) : (<div></div>)}
+                    {view === "text" ? (<Text />) : (<div></div>)}
 
     return (
       <div className="page">
