@@ -24,13 +24,6 @@
 .yesOrNo {
   align-items: center;
 }
-/*
-.logUl {
-  list-style: none outside none;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-} */
 
 .navBar {
   width: 100%;
@@ -52,7 +45,6 @@
   width: 100%;
   clear: both;
 }
-
 
 .page {
   text-align: center;
@@ -79,12 +71,12 @@
   width: 18rem;
   border: 2px solid white;
   border-radius: 5px;
+  word-wrap: break-word;
 }
 
 h6 {
   margin: 0;
 }
-
 
 .App {
   text-align: center;
@@ -129,11 +121,17 @@ h6 {
   color: #61dafb;
 }
 
-button {
+.button-large {
   height: 80px;
   width: 200px;
   font-size: large;
   cursor: pointer;
+}
+
+.delete-button {
+  cursor: pointer;
+  padding: 0.5rem;
+  margin: 1rem;
 }
 
 @keyframes App-logo-spin {
