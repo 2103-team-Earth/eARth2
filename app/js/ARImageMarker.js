@@ -1,15 +1,16 @@
 'use strict';
 
 import React, { Component } from 'react';
-
-import { StyleSheet } from 'react-native';
-
+// import { connect } from "react-redux";
+import { StyleSheet, TouchableHighlight, Text } from 'react-native';
+// import { setNavigation, PROFILE_TYPE } from "./redux/navigation";
 import {
   ViroARScene,
   ViroARImageMarker,
   ViroText,
   ViroConstants,
   ViroBox,
+  ViroSound,
   ViroSphere,
   ViroMaterials,
   ViroARTrackingTargets,
@@ -17,6 +18,7 @@ import {
   ViroDirectionalLight,
   ViroAnimations,
 } from 'react-viro';
+// import styles from "./Stylesheet";
 
 export default class ChooseImage extends Component {
   constructor() {
@@ -27,28 +29,68 @@ export default class ChooseImage extends Component {
     };
   }
 
+  componentDidMount() {
+    const { project } = this.props;
+    this.myColorKey = `myColor ${Date.now()}`;
+    this.myTextureKey = `myTexture ${Date.now()}`;
+    ViroMaterials.createMaterials({
+      [this.myColorKey]: {
+        diffuseColor: project.color,
+        lightingModel: 'Blinn',
+      },
+      [this.myTextureKey]: {
+        diffuseTexture: require(project.texture),
+        lightingModel: 'Blinn',
+      },
+    });
+  }
+
   render() {
+    const { project } = this.props;
     return (
       <ViroARScene>
         <ViroARImageMarker target={'frame'}>
-          <ViroAmbientLight color='#d3d3d3' intensity={150} />
+          <ViroAmbientLight color='#ffffff' intensity={150} />
           <ViroDirectionalLight
-            color='#d3d3d3'
+            color='#ffffff'
             direction={[0.5, -1, 0.5]}
             castsShadow={true}
           />
-
-          {/* <ViroText
-          text={this.state.text}
-          scale={[0.25, 0.25, 0.25]}
-          position={[0, 0, -1]}
-          style={styles.helloWorldTextStyle}
-        /> */}
-          <ViroSphere
-            position={[0, -0.5, -1]}
-            scale={[0.3, 0.3, 0.3]}
-            materials={['lightgrey']}
-            animation={{ name: 'rotate', run: true, loop: true }}
+          <ViroText
+            text={this.state.text}
+            scale={[project.textScaleX, project.textScaleY, project.textScaleZ]}
+            position={[0, 0, -1]}
+            style={styles.helloWorldTextStyle}
+          />
+          {project.shape.cube ? (
+            <ViroBox
+              position={[0, -0.5, -1]}
+              scale={[
+                project.shapeScaleX,
+                project.shapeScaleY,
+                project.shapeScaleZ,
+              ]}
+              materials={project.color ? this.myColorKey : this.myTextureKey}
+              animation={{ name: project.animation, run: true, loop: true }}
+            />
+          ) : (
+            <ViroSphere
+              position={[0, -0.5, -1]}
+              scale={[
+                project.shapeScaleX,
+                project.shapeScaleY,
+                project.shapeScaleZ,
+              ]}
+              materials={project.color ? this.myColorKey : this.myTextureKey}
+              animation={{ name: project.animation, run: true, loop: true }}
+            />
+          )}
+          <ViroSound
+            paused={false}
+            muted={false}
+            source={require('./res/streetsigns.mp3')}
+            loop={true}
+            volume={1.0}
           />
         </ViroARImageMarker>
       </ViroARScene>
@@ -58,7 +100,7 @@ export default class ChooseImage extends Component {
   _onInitialized(state, reason) {
     if (state == ViroConstants.TRACKING_NORMAL) {
       this.setState({
-        text: '',
+        text: 'Champloo',
       });
     } else if (state == ViroConstants.TRACKING_NONE) {
       // Handle loss of tracking
@@ -68,19 +110,62 @@ export default class ChooseImage extends Component {
 
 ViroARTrackingTargets.createTargets({
   frame: {
-    source: require('./res/test4.png'),
+    source: require('./res/fsalogo.png'),
     orientation: 'Up',
     physicalWidth: 0.1,
   },
 });
 
+ViroMaterials.createMaterials({
+  Champloo: {
+    diffuseTexture: require('./res/Champloo.png'),
+    lightingModel: 'Blinn',
+  },
+});
+
 ViroAnimations.registerAnimations({
-  rotate: {
+  spin: {
     properties: {
       rotateY: '+=45',
     },
     duration: 2000,
   },
+  forward: {
+    properties: {
+      rotateX: '+=45',
+    },
+    duration: 2000,
+  },
+  backward: {
+    properties: {
+      rotateX: '-=45',
+    },
+    duration: 2000,
+  },
+  frontFlip: {
+    properties: {
+      rotateX: '+=360',
+    },
+    easing: 'EaseInEaseOut',
+    duration: 1000,
+  },
+  sit: {
+    properties: {
+      positionY: -0.5,
+    },
+    duration: 1000,
+  },
+  jumpUp: {
+    properties: {
+      positionY: '+=1',
+    },
+    duration: 1000,
+  },
+  delayAnimation: {
+    delay: 4000,
+  },
+  jump: [['sit', 'jumpUp', 'sit'], ['delayAnimation']],
+  flip: [['frontFlip'], ['delayAnimation']],
 });
 
 var styles = StyleSheet.create({
@@ -92,5 +177,3 @@ var styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
-module.exports = ChooseImage;

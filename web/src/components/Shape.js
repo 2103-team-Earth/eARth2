@@ -1,4 +1,9 @@
-import React, { Component } from "react";
+import firebase from 'firebase';
+import "firebase/firestore";
+import "firebase/storage";
+import { v4 as uuidv4 } from 'uuid';
+import { withRouter } from 'react-router';
+import React, { Component } from 'react';
 import { SketchPicker } from 'react-color';
 import { Cube } from "../3DFolder/Cube"
 import { Sphere } from "../3DFolder/Sphere"
@@ -19,7 +24,8 @@ export class Shape extends Component {
           fontSize: 12,
           lightingModel: "Blinn",
           diffuseTexture: {},
-          audio: "",
+          soundUrl: '',
+          soundName: '',
           view: "shape",
           material: 'https://threejsfundamentals.org/threejs/resources/images/wall.jpg',
           colorOrTexture: 'color',
@@ -27,10 +33,10 @@ export class Shape extends Component {
           targetImage: ''
           }
     		
-    		this.handleChange = this.handleChange.bind(this);
-            this.handleSubmit = this.handleSubmit.bind(this);
+    		    this.handleChange = this.handleChange.bind(this);
             this.handleChangeColor = this.handleChangeColor.bind(this);
-
+            this.handleFileChange = this.handleFileChange.bind(this);
+            this.handleSubmit = this.handleSubmit.bind(this);
         }
 
             handleChange(evt) {
@@ -40,19 +46,68 @@ export class Shape extends Component {
 
             }
 
-            handleSubmit() {
-
-            }
-
             handleChangeColor = (color) => {
                 this.setState({ colorSelected: color.hex });
               };
 
+            handleFileChange(e) {
+    if (e.target.files[0]) {
+      const soundFile = e.target.files[0];
+      const uploadTask = firebase.storage().ref(`sounds/${soundFile.name}`).put(soundFile);
+      uploadTask.on(
+        'state_changed',
+        snapshot => {},
+        error => {
+          console.log(error);
+        },
+        () => {
+          firebase.storage()
+            .ref('sounds')
+            .child(soundFile.name)
+            .getDownloadURL()
+            .then(url => {
+              this.setState({
+                soundUrl: url,
+                soundName: soundFile.name,
+              })
+            });
+        }
+      );
+    };
+  }
 
+  handleSubmit(e) {
+    e.preventDefault();
+
+    firebase.firestore()
+      .collection('users')
+      .doc(firebase.auth().currentUser.uid)
+      .update({
+        projects: firebase.firestore.FieldValue.arrayUnion({
+          id: uuidv4(),
+          view: this.state.view,
+          name: this.state.name,
+          shape: this.state.shape,
+          colorSelected: this.state.colorSelected,
+          animation: this.state.animation,
+          animate: this.state.animate,
+          shapeScaleX: this.state.shapeScaleX,
+          shapeScaleY: this.state.shapeScaleY,
+          shapeScaleZ: this.state.shapeScaleZ,
+          fontSize: this.state.fontSize,
+          lightingModel: this.state.lightingModel,
+          diffuseTexture: this.state.diffuseTexture,
+          soundUrl: this.state.soundUrl,
+          soundName: this.state.soundName,
+        })
+      });
+
+    this.props.history.push('/projects');
+  }
 
         render() {
-            const {handleSubmit, handleChange, handleChangeColor} = this
-            const {animation, shape, colorSelected, animate, name, shapeScaleX, shapeScaleY, shapeScaleZ, audio, colorOrTexture, material, imageMarker, targetImage} = this.state
+            const {handleSubmit, handleChange, handleChangeColor, handleFileChange} = this
+            const {animation, shape, colorSelected, animate, name, shapeScaleX, shapeScaleY, shapeScaleZ, soundURL, colorOrTexture, material, imageMarker, targetImage} = this.state
             return (
                 <div>
                 {shape === "sphere" ? (<Sphere data={this.state}/>) : (<div><Cube data={this.state} /></div>)}
@@ -111,10 +166,10 @@ export class Shape extends Component {
                     </label>
                     </div> ) }
 
-                    <div className="audio">
-                    <label htmlFor="audio" >
+                    <div className="sound">
+                    <label htmlFor="sound" >
                     <label> Insert a URL to a MP3 for a song to be attached to your model: </label>
-                    <input name="audio" type="text" onChange={handleChange} value={audio} />
+                    <input name="sound" type="text" onChange={handleChange} value={soundURL} />
                     </label>
                     </div> 
 
@@ -171,4 +226,4 @@ export class Shape extends Component {
             );
             }
             }
-             export default Shape;
+             export default withRouter(Shape);
