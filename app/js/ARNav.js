@@ -5,8 +5,8 @@ import styles from "./Stylesheet";
 import {
   setNavigation,
   AUTO_AR,
-  AR_PLANE_SELECTOR,
-  AR_IMAGE_MARKER,
+  // AR_PLANE_SELECTOR,
+  // AR_IMAGE_MARKER,
 } from "./redux/navigation";
 
 export class ARNav extends Component {
@@ -24,7 +24,7 @@ export class ARNav extends Component {
             <Text style={styles.buttonText}>AUTOMATIC</Text>
           </TouchableHighlight>
 
-          <TouchableHighlight
+          {/* <TouchableHighlight
             style={styles.buttons}
             onPress={() => this.props.setNavType(AR_PLANE_SELECTOR)}
             underlayColor={"#68a0ff"}
@@ -38,7 +38,7 @@ export class ARNav extends Component {
             underlayColor={"#68a0ff"}
           >
             <Text style={styles.buttonText}>FIND IMAGE</Text>
-          </TouchableHighlight>
+          </TouchableHighlight> */}
         </View>
       </View>
     );

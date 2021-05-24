@@ -1,10 +1,11 @@
 import { combineReducers } from "redux";
 import navigationReducer from "./navigation";
+import projectReducer from "./project";
 
 //combine reducer
 const rootReducer = combineReducers({
   navigation: navigationReducer,
-  // models: modelsReducer, if we need it
+  project: projectReducer,
 });
 
 //store
