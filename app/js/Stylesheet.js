@@ -65,4 +65,7 @@ export default styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: "white",
   },
+  input: {
+    color: "white",
+  },
 });

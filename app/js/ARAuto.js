@@ -15,8 +15,9 @@ import {
   ViroDirectionalLight,
   ViroAnimations,
 } from 'react-viro';
+import { connect } from "react-redux";
 
-export default class ARAuto extends Component {
+class ARAuto extends Component {
   constructor() {
     super();
 
@@ -31,6 +32,7 @@ export default class ARAuto extends Component {
 
   componentDidMount() {
     const { project } = this.props;
+
     this.myColorKey = `myColor ${Date.now()}`;
     this.myTextureKey = `myTexture ${Date.now()}`;
     ViroMaterials.createMaterials({
@@ -47,6 +49,7 @@ export default class ARAuto extends Component {
 
   render() {
     const { project } = this.props;
+
     return (
       <ViroARScene onTrackingUpdated={this._onInitialized}>
         <ViroAmbientLight color='#ffffff' intensity={150} />
@@ -97,12 +100,13 @@ export default class ARAuto extends Component {
         />
       </ViroARScene>
     );
+
   }
 
   _onInitialized(state, reason) {
     if (state == ViroConstants.TRACKING_NORMAL) {
       this.setState({
-        text: projects.text,
+        text: project.text,
       });
     } else if (state == ViroConstants.TRACKING_NONE) {
       // Handle loss of tracking
@@ -170,4 +174,10 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = ARAuto;
+const mapState = (state) => ({
+  project: state.project,
+});
+
+// module.exports = ARAuto;
+
+export default connect(mapState)(ARAuto);

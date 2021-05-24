@@ -9,14 +9,15 @@ import Create from "./components/Create";
 import Welcome from "./components/Welcome";
 import Projects from "./components/Projects";
 
+// Firebase API key is public
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
+  apiKey: "AIzaSyCycTEcCKba9eQBaKPYT05aGZl-fhyQb9c",
+  authDomain: "earth-a2ce0.firebaseapp.com",
+  projectId: "earth-a2ce0",
+  storageBucket: "earth-a2ce0.appspot.com",
+  messagingSenderId: "33112054293",
+  appId: "1:33112054293:web:801afc5e9473c7ba050c1c",
+  measurementId: "G-6V50YYJBS2"
 };
 
 if (firebase.apps.length === 0) {
