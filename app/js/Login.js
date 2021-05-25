@@ -1,18 +1,18 @@
-import React, { Component } from "react";
-import { Text, View, TouchableHighlight, TextInput } from "react-native";
-import { connect } from "react-redux";
-import styles from "./Stylesheet";
-import { setNavigation, PROFILE_TYPE } from "./redux/navigation";
-import firebase from "firebase";
-import "firebase/firestore";
+import React, { Component } from 'react';
+import { Text, View, TouchableHighlight, TextInput } from 'react-native';
+import { connect } from 'react-redux';
+import styles from './Stylesheet';
+import { setNavigation, PROFILE_TYPE } from './redux/navigation';
+import firebase from 'firebase';
+import 'firebase/firestore';
 
 export class Login extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      email: "",
-      password: "",
+      email: 'momack@gmail.com',
+      password: 'momack',
     };
 
     this.onLogin = this.onLogin.bind(this);
@@ -43,13 +43,13 @@ export class Login extends Component {
 
           <TextInput
             style={styles.input}
-            placeholder="email"
+            placeholder='email'
             onChangeText={(email) => this.setState({ email })}
           />
 
           <TextInput
             style={styles.input}
-            placeholder="password"
+            placeholder='password'
             secureTextEntry={true}
             onChangeText={(password) => this.setState({ password })}
           />
@@ -57,11 +57,10 @@ export class Login extends Component {
           <TouchableHighlight
             style={styles.buttons}
             onPress={() => this.onLogin()}
-            underlayColor={"#68A0FF"}
+            underlayColor={'#68A0FF'}
           >
             <Text style={styles.buttonText}>Login</Text>
           </TouchableHighlight>
-
         </View>
       </View>
     );

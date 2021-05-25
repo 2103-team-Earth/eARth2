@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import { Text, View, TouchableHighlight } from "react-native";
-import { connect } from "react-redux";
-import styles from "./Stylesheet";
+import React, { Component } from 'react';
+import { Text, View, TouchableHighlight } from 'react-native';
+import { connect } from 'react-redux';
+import styles from './Stylesheet';
 import {
   setNavigation,
   AUTO_AR,
-  // AR_PLANE_SELECTOR,
-  // AR_IMAGE_MARKER,
-} from "./redux/navigation";
+  AR_PLANE_SELECTOR,
+  AR_IMAGE_MARKER,
+} from './redux/navigation';
 
 export class ARNav extends Component {
   render() {
@@ -19,15 +19,15 @@ export class ARNav extends Component {
           <TouchableHighlight
             style={styles.buttons}
             onPress={() => this.props.setNavType(AUTO_AR)}
-            underlayColor={"#68a0ff"}
+            underlayColor={'#68a0ff'}
           >
             <Text style={styles.buttonText}>AUTOMATIC</Text>
           </TouchableHighlight>
 
-          {/* <TouchableHighlight
+          <TouchableHighlight
             style={styles.buttons}
             onPress={() => this.props.setNavType(AR_PLANE_SELECTOR)}
-            underlayColor={"#68a0ff"}
+            underlayColor={'#68a0ff'}
           >
             <Text style={styles.buttonText}>CHOOSE BASE</Text>
           </TouchableHighlight>
@@ -35,10 +35,10 @@ export class ARNav extends Component {
           <TouchableHighlight
             style={styles.buttons}
             onPress={() => this.props.setNavType(AR_IMAGE_MARKER)}
-            underlayColor={"#68a0ff"}
+            underlayColor={'#68a0ff'}
           >
             <Text style={styles.buttonText}>FIND IMAGE</Text>
-          </TouchableHighlight> */}
+          </TouchableHighlight>
         </View>
       </View>
     );

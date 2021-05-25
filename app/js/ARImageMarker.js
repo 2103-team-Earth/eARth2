@@ -1,179 +1,246 @@
-// 'use strict';
+'use strict';
 
-// import React, { Component } from 'react';
-// // import { connect } from "react-redux";
-// import { StyleSheet, TouchableHighlight, Text } from 'react-native';
-// // import { setNavigation, PROFILE_TYPE } from "./redux/navigation";
-// import {
-//   ViroARScene,
-//   ViroARImageMarker,
-//   ViroText,
-//   ViroConstants,
-//   ViroBox,
-//   ViroSound,
-//   ViroSphere,
-//   ViroMaterials,
-//   ViroARTrackingTargets,
-//   ViroAmbientLight,
-//   ViroDirectionalLight,
-//   ViroAnimations,
-// } from 'react-viro';
-// // import styles from "./Stylesheet";
+import React, { Component } from 'react';
+// import { connect } from "react-redux";
+import { StyleSheet, TouchableHighlight, Text } from 'react-native';
+// import { setNavigation, PROFILE_TYPE } from "./redux/navigation";
+import {
+  ViroARScene,
+  ViroARImageMarker,
+  ViroText,
+  ViroConstants,
+  ViroBox,
+  preloadSounds,
+  ViroSound,
+  ViroSphere,
+  ViroMaterials,
+  ViroARTrackingTargets,
+  ViroAmbientLight,
+  ViroDirectionalLight,
+  ViroAnimations,
+} from 'react-viro';
+// import styles from "./Stylesheet";
 
-// export default class ChooseImage extends Component {
-//   constructor() {
-//     super();
-//     // Set initial state here
-//     this.state = {
-//       text: '',
-//     };
-//   }
+// converts model scales data type from string to integer
+function convertToNumber(string) {
+  return parseFloat(string, 10);
+}
 
-//   componentDidMount() {
-//     const { project } = this.props;
-//     this.myColorKey = `myColor ${Date.now()}`;
-//     this.myTextureKey = `myTexture ${Date.now()}`;
-//     ViroMaterials.createMaterials({
-//       [this.myColorKey]: {
-//         diffuseColor: project.color,
-//         lightingModel: 'Blinn',
-//       },
-//       [this.myTextureKey]: {
-//         diffuseTexture: require(project.texture),
-//         lightingModel: 'Blinn',
-//       },
-//     });
-//   }
+export default class FindImage extends Component {
+  constructor() {
+    super();
 
-//   render() {
-//     const { project } = this.props;
-//     return (
-//       <ViroARScene>
-//         <ViroARImageMarker target={'frame'}>
-//           <ViroAmbientLight color='#ffffff' intensity={150} />
-//           <ViroDirectionalLight
-//             color='#ffffff'
-//             direction={[0.5, -1, 0.5]}
-//             castsShadow={true}
-//           />
-//           <ViroText
-//             text={this.state.text}
-//             scale={[project.textScaleX, project.textScaleY, project.textScaleZ]}
-//             position={[0, 0, -1]}
-//             style={styles.helloWorldTextStyle}
-//           />
-//           {project.shape.cube ? (
-//             <ViroBox
-//               position={[0, -0.5, -1]}
-//               scale={[
-//                 project.shapeScaleX,
-//                 project.shapeScaleY,
-//                 project.shapeScaleZ,
-//               ]}
-//               materials={project.color ? this.myColorKey : this.myTextureKey}
-//               animation={{ name: project.animation, run: true, loop: true }}
-//             />
-//           ) : (
-//             <ViroSphere
-//               position={[0, -0.5, -1]}
-//               scale={[
-//                 project.shapeScaleX,
-//                 project.shapeScaleY,
-//                 project.shapeScaleZ,
-//               ]}
-//               materials={project.color ? this.myColorKey : this.myTextureKey}
-//               animation={{ name: project.animation, run: true, loop: true }}
-//             />
-//           )}
-//           <ViroSound
-//             paused={false}
-//             muted={false}
-//             source={require('./res/streetsigns.mp3')}
-//             loop={true}
-//             volume={1.0}
-//           />
-//         </ViroARImageMarker>
-//       </ViroARScene>
-//     );
-//   }
+    // Set initial state here
+    this.state = {
+      text: 'Loading...',
+    };
 
-//   _onInitialized(state, reason) {
-//     if (state == ViroConstants.TRACKING_NORMAL) {
-//       this.setState({
-//         text: 'Champloo',
-//       });
-//     } else if (state == ViroConstants.TRACKING_NONE) {
-//       // Handle loss of tracking
-//     }
-//   }
-// }
+    // bind 'this' to functions
+    this.myColorKey = `myColor${Date.now().toString().slice(-3)}`;
+    this.myTextureKey = `myTexture${Date.now().toString().slice(-3)}`;
+    this.mySoundKey = `mySound${Date.now().toString().slice(-3)}`;
+    this._onInitialized = this._onInitialized.bind(this);
+  }
 
-// ViroARTrackingTargets.createTargets({
-//   frame: {
-//     source: require('./res/fsalogo.png'),
-//     orientation: 'Up',
-//     physicalWidth: 0.1,
-//   },
-// });
+  componentDidMount() {
+    const { project } = this.props;
 
-// ViroMaterials.createMaterials({
-//   Champloo: {
-//     diffuseTexture: require('./res/Champloo.png'),
-//     lightingModel: 'Blinn',
-//   },
-// });
+    if (project.colorSelected) {
+      ViroMaterials.createMaterials({
+        [this.myColorKey]: {
+          diffuseColor: project.colorSelected,
+          lightingModel: 'Blinn',
+        },
+      });
+    } else {
+      ViroMaterials.createMaterials({
+        [this.myTextureKey]: {
+          diffuseTexture: {
+            uri: project.material,
+          },
+          lightingModel: 'Blinn',
+        },
+      });
+    }
+    if (project.sound) {
+      ViroSound.preloadSounds({
+        [this.mySoundKey]: project.sound,
+      });
+    }
 
-// ViroAnimations.registerAnimations({
-//   spin: {
-//     properties: {
-//       rotateY: '+=45',
-//     },
-//     duration: 2000,
-//   },
-//   forward: {
-//     properties: {
-//       rotateX: '+=45',
-//     },
-//     duration: 2000,
-//   },
-//   backward: {
-//     properties: {
-//       rotateX: '-=45',
-//     },
-//     duration: 2000,
-//   },
-//   frontFlip: {
-//     properties: {
-//       rotateX: '+=360',
-//     },
-//     easing: 'EaseInEaseOut',
-//     duration: 1000,
-//   },
-//   sit: {
-//     properties: {
-//       positionY: -0.5,
-//     },
-//     duration: 1000,
-//   },
-//   jumpUp: {
-//     properties: {
-//       positionY: '+=1',
-//     },
-//     duration: 1000,
-//   },
-//   delayAnimation: {
-//     delay: 4000,
-//   },
-//   jump: [['sit', 'jumpUp', 'sit'], ['delayAnimation']],
-//   flip: [['frontFlip'], ['delayAnimation']],
-// });
+    // console.log(JSON.stringify(project, null, 4));
+    //
+    // this.myTextureKey = `myTexture ${Date.now()}`;
+    // if (project.colorSelected) {
+    //   ViroMaterials.createMaterials({
+    //     [this.myColorKey]: {
+    //       diffuseColor: '#eac07a',
+    //       lightingModel: 'Blinn',
+    //     },
+    //   });
+    // } else {
+    //   ViroMaterials.createMaterials({
+    //     [this.myTextureKey]: {
+    //       diffuseTexture: project.diffuseTexture,
+    //       lightingModel: 'Blinn',
+    //     },
+    //   });
+    // }
+  }
 
-// var styles = StyleSheet.create({
-//   helloWorldTextStyle: {
-//     fontFamily: 'Arial',
-//     fontSize: 30,
-//     color: '#ffffff',
-//     textAlignVertical: 'center',
-//     textAlign: 'center',
-//   },
-// });
+  render() {
+    const { project } = this.props;
+    return (
+      <ViroARScene>
+        <ViroARImageMarker target={'frame'}>
+          <ViroAmbientLight color='#ffffff' intensity={150} />
+          <ViroDirectionalLight
+            color='#ffffff'
+            direction={[0.5, -1, 0.5]}
+            castsShadow={true}
+          />
+          {project.text ? (
+            <ViroText
+              text={this.state.text}
+              scale={[
+                0.25, 0.25, 0.25,
+                // convertToNumber(project.textScaleX),
+                // convertToNumber(project.textScaleY),
+                // convertToNumber(project.textScaleZ),
+              ]}
+              position={[0, 0, -1]}
+              style={styles.helloWorldTextStyle}
+            />
+          ) : null}
+          {project.shape === 'cube' ? (
+            <ViroBox
+              position={[0, -0.5, -1]}
+              scale={[
+                convertToNumber(project.shapeScaleX),
+                convertToNumber(project.shapeScaleY),
+                convertToNumber(project.shapeScaleZ),
+              ]}
+              materials={[
+                project.colorOrTexture === 'color'
+                  ? this.myColorKey
+                  : this.myTextureKey,
+              ]}
+              animation={{ name: project.animate, run: true, loop: true }}
+            />
+          ) : (
+            <ViroSphere
+              position={[0, -0.5, -1]}
+              scale={[
+                convertToNumber(project.shapeScaleX),
+                convertToNumber(project.shapeScaleY),
+                convertToNumber(project.shapeScaleZ),
+              ]}
+              materials={[
+                project.colorOrTexture === 'color'
+                  ? this.myColorKey
+                  : this.myTextureKey,
+              ]}
+              animation={{
+                name: project.animate,
+                run: true,
+                loop: true,
+              }}
+            />
+          )}
+          <ViroSound
+            paused={false}
+            muted={false}
+            // if audioUrl isn't working will have to use project.sound as source for audio files
+            source={this.mySoundKey}
+            loop={true}
+            // onError={(error) => {
+            //   console.log(error);
+            // }}
+            volume={1.0}
+          />
+        </ViroARImageMarker>
+      </ViroARScene>
+    );
+  }
+
+  _onInitialized(state, reason) {
+    if (state == ViroConstants.TRACKING_NORMAL) {
+      this.setState({
+        text: 'Champloo',
+      });
+    } else if (state == ViroConstants.TRACKING_NONE) {
+      // Handle loss of tracking
+    }
+  }
+}
+
+ViroARTrackingTargets.createTargets({
+  frame: {
+    source: require('./res/fsalogo.png'),
+    orientation: 'Up',
+    physicalWidth: 0.1,
+  },
+});
+
+ViroAnimations.registerAnimations({
+  spin: {
+    properties: {
+      rotateY: '+=45',
+    },
+    duration: 2000,
+  },
+  forward: {
+    properties: {
+      rotateX: '+=45',
+    },
+    duration: 2000,
+  },
+  backward: {
+    properties: {
+      rotateX: '-=45',
+    },
+    duration: 2000,
+  },
+  frontFlip: {
+    properties: {
+      rotateX: '+=360',
+    },
+    easing: 'EaseInEaseOut',
+    duration: 1000,
+  },
+  sit: {
+    properties: {
+      positionY: -0.5,
+    },
+    duration: 1000,
+  },
+  jumpUp: {
+    properties: {
+      positionY: '+=1',
+    },
+    duration: 1000,
+  },
+  delayAnimation: {
+    delay: 4000,
+  },
+  jump: [['sit', 'jumpUp', 'sit'], ['delayAnimation']],
+  flip: [['frontFlip'], ['delayAnimation']],
+});
+
+var styles = StyleSheet.create({
+  helloWorldTextStyle: {
+    fontFamily: 'Arial',
+    fontSize: 30,
+    color: '#ffffff',
+    textAlignVertical: 'center',
+    textAlign: 'center',
+  },
+});
+
+const mapState = (state) => ({
+  project: state.project,
+});
+
+// module.exports = FindImage;
+
+export default connect(mapState)(FindImage);
