@@ -4,9 +4,9 @@ eARth is a platform for artists to create interactive 3D models and place them i
 
 eARth’s goal is to empower artists and create a new way for people to appreciate art around the world.
 
-## Preview of Choose your base option:
+### Preview of Choose your base option:
 
-![](app/res/TakashiRender.png)
+![](app/res/takashiVidTest.mov)
 
 ### Clone Repo
 
