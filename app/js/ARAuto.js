@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 import {
   ViroARScene,
   preloadSounds,
@@ -15,7 +16,6 @@ import {
   ViroDirectionalLight,
   ViroAnimations,
 } from 'react-viro';
-import { connect } from 'react-redux';
 
 // converts model scales data type from string to integer
 function convertToNumber(string) {

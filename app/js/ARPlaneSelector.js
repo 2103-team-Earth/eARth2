@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 import {
   ViroARScene,
   ViroARPlaneSelector,
@@ -22,7 +23,7 @@ function convertToNumber(string) {
   return parseFloat(string, 10);
 }
 
-export default class ChooseBase extends Component {
+export class ChooseBase extends Component {
   constructor() {
     super();
 
@@ -39,6 +40,8 @@ export default class ChooseBase extends Component {
   }
 
   componentDidMount() {
+    const { project } = this.props;
+
     if (project.colorSelected) {
       ViroMaterials.createMaterials({
         [this.myColorKey]: {
@@ -230,4 +233,3 @@ const mapState = (state) => ({
 // module.exports = ChooseBase;
 
 export default connect(mapState)(ChooseBase);
-
