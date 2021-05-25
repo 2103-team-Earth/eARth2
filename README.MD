@@ -6,7 +6,7 @@ eARth’s goal is to empower artists and create a new way for people to apprecia
 
 ### Preview of Choose your base option:
 
-![](app/res/takashiVidTest.mov)
+[takashiVidTest.mov.zip](https://github.com/2103-team-Earth/eARth2/files/6540655/takashiVidTest.mov.zip)
 
 ### Clone Repo
 
