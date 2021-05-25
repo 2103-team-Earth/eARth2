@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 // import { connect } from "react-redux";
 import { StyleSheet, TouchableHighlight, Text } from 'react-native';
-// import { setNavigation, PROFILE_TYPE } from "./redux/navigation";
+import { connect } from 'react-redux';
 import {
   ViroARScene,
   ViroARImageMarker,
@@ -26,7 +26,7 @@ function convertToNumber(string) {
   return parseFloat(string, 10);
 }
 
-export default class FindImage extends Component {
+export class FindImage extends Component {
   constructor() {
     super();
 
@@ -39,6 +39,7 @@ export default class FindImage extends Component {
     this.myColorKey = `myColor${Date.now().toString().slice(-3)}`;
     this.myTextureKey = `myTexture${Date.now().toString().slice(-3)}`;
     this.mySoundKey = `mySound${Date.now().toString().slice(-3)}`;
+    this.myTargetKey = `myTarget${Date.now().toString().slice(-3)}`;
     this._onInitialized = this._onInitialized.bind(this);
   }
 
@@ -66,6 +67,14 @@ export default class FindImage extends Component {
       ViroSound.preloadSounds({
         [this.mySoundKey]: project.sound,
       });
+
+      ViroARTrackingTargets.createTargets({
+        [this.myTargetKey]: {
+          source: { uri: project.targetImage },
+          orientation: 'Up',
+          physicalWidth: 0.1,
+        },
+      });
     }
 
     // console.log(JSON.stringify(project, null, 4));
@@ -92,7 +101,7 @@ export default class FindImage extends Component {
     const { project } = this.props;
     return (
       <ViroARScene>
-        <ViroARImageMarker target={'frame'}>
+        <ViroARImageMarker target={this.myTargetKey}>
           <ViroAmbientLight color='#ffffff' intensity={150} />
           <ViroDirectionalLight
             color='#ffffff'
@@ -173,14 +182,6 @@ export default class FindImage extends Component {
     }
   }
 }
-
-ViroARTrackingTargets.createTargets({
-  frame: {
-    source: require('./res/fsalogo.png'),
-    orientation: 'Up',
-    physicalWidth: 0.1,
-  },
-});
 
 ViroAnimations.registerAnimations({
   spin: {

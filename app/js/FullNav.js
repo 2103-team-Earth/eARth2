@@ -1,17 +1,15 @@
-import React, { Component } from "react";
-import { ViroARSceneNavigator } from "react-viro";
-import { connect } from "react-redux";
-
-
+import React, { Component } from 'react';
+import { ViroARSceneNavigator } from 'react-viro';
+import { connect } from 'react-redux';
 
 //components
-import Login from "./Login";
-import Profile from "./Profile";
-import Explore from "./Explore";
-import ARNav from "./ARNav";
-import ARAuto from "./ARAuto";
-// import ARPlanSelector from "./ARPlaneSelector";
-// import ARImageMarker from "./ARImageMarker";
+import Login from './Login';
+import Profile from './Profile';
+import Explore from './Explore';
+import ARNav from './ARNav';
+import ARAuto from './ARAuto';
+import ARPlaneSelector from './ARPlaneSelector';
+import ARImageMarker from './ARImageMarker';
 
 //nav types
 import {
@@ -19,9 +17,9 @@ import {
   EXPLORE_TYPE,
   AR_NAVIGATOR_TYPE,
   AUTO_AR,
-  // AR_PLANE_SELECTOR,
-  // AR_IMAGE_MARKER,
-} from "./redux/navigation";
+  AR_PLANE_SELECTOR,
+  AR_IMAGE_MARKER,
+} from './redux/navigation';
 
 export class FullNav extends Component {
   render() {
@@ -34,12 +32,12 @@ export class FullNav extends Component {
         return <ARNav />;
       case AUTO_AR:
         return <ViroARSceneNavigator initialScene={{ scene: ARAuto }} />;
-      // case AR_PLANE_SELECTOR:
-      //   return (
-      //     <ViroARSceneNavigator initialScene={{ scene: ARPlanSelector }} />
-      //   );
-      // case AR_IMAGE_MARKER:
-      //   return <ViroARSceneNavigator initialScene={{ scene: ARImageMarker }} />;
+      case AR_PLANE_SELECTOR:
+        return (
+          <ViroARSceneNavigator initialScene={{ scene: ARPlaneSelector }} />
+        );
+      case AR_IMAGE_MARKER:
+        return <ViroARSceneNavigator initialScene={{ scene: ARImageMarker }} />;
       default:
         return <Login />;
     }
