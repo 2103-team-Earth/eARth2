@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import firebase from "firebase";
 import "firebase/firestore";
+import { Button, OverlayTrigger, Popover } from "react-bootstrap";
 
 class Signup extends Component {
   constructor() {
@@ -77,20 +78,37 @@ class Signup extends Component {
               />
             </div>
 
-            <div>
-              <label htmlFor="password">
-                <small>Password: </small>
-              </label>
-              <input
-                name="password"
-                type="password"
-                onChange={this.handleChange}
-                value={this.state.password}
-              />
-            </div>
+            <OverlayTrigger
+              trigger="focus"
+              placement="top"
+              overlay={
+                <Popover id={"popover - positioned - top"}>
+                  <Popover.Title as="h4">Pro Tip:</Popover.Title>
+                  <Popover.Content>
+                    Please ensure that your password is at least{" "}
+                    <strong>6</strong> characters in length and includes at
+                    least one letter and number
+                  </Popover.Content>
+                </Popover>
+              }
+            >
+              <div>
+                <label htmlFor="password">
+                  <small>Password: </small>
+                </label>
+                <input
+                  name="password"
+                  type="password"
+                  onChange={this.handleChange}
+                  value={this.state.password}
+                />
+              </div>
+            </OverlayTrigger>
 
             <div className="enter">
-              <button className="button-large" type="submit">Sign Up</button>
+              <Button variant="light" type="submit">
+                Sign Up
+              </Button>
             </div>
           </form>
         </div>
