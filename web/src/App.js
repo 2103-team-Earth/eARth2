@@ -8,6 +8,10 @@ import Logout from "./components/Logout";
 import Create from "./components/Create";
 import Welcome from "./components/Welcome";
 import Projects from "./components/Projects";
+import logo from "./assets/earthLogo.png";
+import gif from "./assets/loading.gif";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Navbar, Nav } from "react-bootstrap";
 
 // Firebase API key is public
 const firebaseConfig = {
@@ -17,7 +21,7 @@ const firebaseConfig = {
   storageBucket: "earth-a2ce0.appspot.com",
   messagingSenderId: "33112054293",
   appId: "1:33112054293:web:801afc5e9473c7ba050c1c",
-  measurementId: "G-6V50YYJBS2"
+  measurementId: "G-6V50YYJBS2",
 };
 
 if (firebase.apps.length === 0) {
@@ -53,8 +57,9 @@ class App extends Component {
 
     if (!loaded) {
       return (
-        <div>
+        <div style={{ textAlign: "center" }}>
           <h1>Loading</h1>
+          <img src={gif} alt="loading" width="200" />
         </div>
       );
     }
@@ -63,11 +68,18 @@ class App extends Component {
       return (
         <Router>
           <div>
-            <nav>
-              <Link className="navBar" to="/">Home</Link>
-              <Link className="navBar" to="/signup">Sign Up</Link>
-              <Link className="navBar" to="/login">Login</Link>
-            </nav>
+            <Navbar bg="light">
+              <Navbar.Brand href="/">
+                <img
+                  src={logo}
+                  width="50"
+                  className="d-inlline-block align-top"
+                  alt="logo"
+                />
+              </Navbar.Brand>
+              <Nav.Link href="/signup">Sign Up</Nav.Link>
+              <Nav.Link href="/login">Login</Nav.Link>
+            </Navbar>
             <nav>
               <Switch>
                 <Route path="/signup" component={Signup} />
@@ -83,11 +95,18 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <nav>
-            <Link className="navBar" to="/">Home</Link>
-            <Link className="navBar" to="/projects">Projects</Link>
-            <Link className="navBar" to="/logout">Logout</Link>
-          </nav>
+          <Navbar bg="light">
+            <Navbar.Brand href="/">
+              <img
+                src={logo}
+                width="50"
+                className="d-inlline-block align-top"
+                alt="logo"
+              />
+            </Navbar.Brand>
+            <Nav.Link href="/projects">Projects</Nav.Link>
+            <Nav.Link href="/logout">Logout</Nav.Link>
+          </Navbar>
 
           <Switch>
             <Route path="/projects" component={Projects} />

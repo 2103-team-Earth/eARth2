@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import firebase from "firebase";
 import "firebase/firestore";
+import { Button } from "react-bootstrap";
 
 class Login extends Component {
   constructor() {
@@ -70,7 +71,9 @@ class Login extends Component {
             </div>
 
             <div className="enter">
-              <button className="button-large" type="submit">Login</button>
+              <Button variant="light" type="submit">
+                Login
+              </Button>
             </div>
           </form>
         </div>
