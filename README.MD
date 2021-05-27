@@ -1,10 +1,10 @@
 ![earthLogo](https://user-images.githubusercontent.com/74827423/119892884-ae4f2c80-bf08-11eb-8ee9-4f25f85f0e41.png)
 
-# eARth 
+# eARTh 
 
-eARth is a platform for artists to create interactive 3D models and place them in various places around the world using location-based AR. Models may contain an mp3 audio file that can be listened to once the model has been placed.
+eARTh is a platform for artists to create interactive 3D models and place them in various places around the world using location-based AR. Models may contain an mp3 audio file that can be listened to once the model has been placed.
 
-eARth’s goal is to empower artists and create a new way for people to appreciate art around the world.
+eARTh’s goal is to empower artists and create a new way for people to appreciate art around the world.
 
 ### Link to the site
 
