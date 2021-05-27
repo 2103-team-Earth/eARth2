@@ -56,7 +56,7 @@ export class Profile extends Component {
       <View style={styles.inner}>
         <Image style={styles.tinyLogo} source={require('./res/eARth.png')} />
         <Text style={styles.titleText}>My Projects</Text>
-        <Text style={styles.titleText}>Select to preview your projects:</Text>
+        <Text style={styles.titleText}>Select a project to render:</Text>
 
         {this.state.projects.length === 0 ? (
           <Text>
