@@ -1,112 +1,100 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   Text,
-  Image,
   View,
   TouchableHighlight,
   TouchableOpacity,
   ScrollView,
-} from "react-native";
-import { connect } from "react-redux";
-import styles from "./Stylesheet";
+  Image,
+} from 'react-native';
+import { connect } from 'react-redux';
+import styles from './Stylesheet';
 import {
   setNavigation,
-  // AR_NAVIGATOR_TYPE,
+  AR_NAVIGATOR_TYPE,
   PROFILE_TYPE,
-} from "./redux/navigation";
+} from './redux/navigation';
+import { setProject } from './redux/project';
 import firebase from 'firebase';
 import 'firebase/firestore';
-
 export class Explore extends Component {
   constructor() {
     super();
-
     this.state = {
-      projects: []
+      users: [],
     };
-
-    this.handlePress = this.handlePress.bind(this);
+    this.handleProjectPress = this.handleProjectPress.bind(this);
   }
-
   componentDidMount() {
-    firebase.firestore()
+    firebase
+      .firestore()
       .collection('users')
-      .doc(firebase.auth().currentUser.uid)
       .get()
-      .then(snapshot => {
+      .then((snapshot) => {
+        const users = [];
+        snapshot.docs.map((doc) => users.push(doc.data()));
+        const usersWithProjects = users.filter(
+          (user) => user.projects.length > 0
+        );
+        console.log(usersWithProjects);
         this.setState({
-          projects: snapshot.data().projects
+          users: usersWithProjects,
         });
       });
-
     this.setState({
-      state: this.state
+      state: this.state,
     });
   }
-
-  handlePress() {
-    console.log("We handling presses and such");
-
-    console.log(this.props);
+  handleProjectPress(project) {
+    this.props.setProject(project);
+    this.props.setNavType(AR_NAVIGATOR_TYPE);
   }
-
   render() {
+    console.log(this.props);
     return (
-      <View style={styles.inner}>
-        <Image style={styles.tinyLogo} source={require("./res/eARth.png")} />
-        <Text style={styles.titleText}>All Projects</Text>
-        <Text style={styles.titleText}>Explore projects from all users:</Text>
-
-        {
-          this.state.projects.length === 0
-          ?
-          <Text>There are currently no projects.</Text>
-          :
-          <ScrollView>
-            {this.state.projects.map((project) => (
-              <TouchableOpacity
-                key={project.id}
-                style={styles.card}
-                // onPress={() => this.props.setNavType(AR_NAVIGATOR_TYPE)}
-              >
-                <Text>{project.name}</Text>
-                <Text>View: {project.view}</Text>
-                {project.shape ? <Text>Shape: {project.shape}</Text> : null}
-                {project.colorSelected ? <Text>Color: {project.colorSelected}</Text> : null}
-                {project.animation ? <Text>Animation: {project.animation}</Text> : null}
-                {project.animate ? <Text>Animate: {project.animate}</Text> : null}
-                {project.text ? <Text>Text: {project.text}</Text> : null}
-                {project.textScaleX ? <Text>Text Scale X: {project.textScaleX}</Text> : null}
-                {project.textScaleY ? <Text>Text Scale Y: {project.textScaleY}</Text> : null}
-                {project.textScaleZ ? <Text>Text Scale Z: {project.textScaleZ}</Text> : null}
-                {project.shapeScaleX ? <Text>Shape Scale X: {project.shapeScaleX}</Text> : null}
-                {project.shapeScaleY ? <Text>Shape Scale Y: {project.shapeScaleY}</Text> : null}
-                {project.shapeScaleZ ? <Text>Shape Scale Z: {project.shapeScaleZ}</Text> : null}
-                {project.fontSize ? <Text>Font Size: {project.fontSize}</Text> : null}
-                {project.textColor ? <Text>Text Color: {project.textColor}</Text> : null}
-                {project.sound ? <Text>Sound: {project.sound}</Text> : null}
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
-        }
-
-        <TouchableHighlight
-          style={styles.buttons}
-          onPress={() => this.props.setNavType(PROFILE_TYPE)}
-        >
-          <Text style={styles.buttonText}>Profile</Text>
-        </TouchableHighlight>
+      <View style={styles.outer}>
+        <View style={styles.inner}>
+          <Image style={styles.tinyLogo} source={require('./res/eARth.png')} />
+          <Text style={styles.titleText}>All Projects</Text>
+          <Text style={styles.titleText}>
+            Explore projects from other Earthlings:
+          </Text>
+          {this.state.users.length === 0 ? (
+            <Text>There are currently no users with projects.</Text>
+          ) : (
+            <ScrollView>
+              {this.state.users.map((user) => (
+                <View key={user.email} style={styles.card}>
+                  <Text>{user.username}</Text>
+                  {user.projects.map((project) => (
+                    <TouchableOpacity
+                      key={project.id}
+                      style={styles.projectCard}
+                      onPress={() => this.handleProjectPress(project)}
+                    >
+                      <Text>{project.name}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              ))}
+            </ScrollView>
+          )}
+          <TouchableHighlight
+            style={styles.buttons}
+            onPress={() => this.props.setNavType(PROFILE_TYPE)}
+          >
+            <Text style={styles.buttonText}>Profile </Text>
+          </TouchableHighlight>
+        </View>
       </View>
     );
   }
 }
-
 const mapState = (state) => ({
   navType: state.navigation.navigationType,
 });
-
 const mapDispatch = (dispatch) => ({
   setNavType: (type) => dispatch(setNavigation(type)),
+  setProject: (project) => dispatch(setProject(project)),
 });
-
 export default connect(mapState, mapDispatch)(Explore);
