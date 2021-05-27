@@ -6,6 +6,8 @@ eARTh is a platform for artists to create interactive 3D models and place them i
 
 eARTh’s goal is to empower artists and create a new way for people to appreciate art around the world.
 
+About Us: https://youtu.be/_0bYUqzYg6o
+
 ### Link to the site
 
 https://earth-a2ce0.firebaseapp.com/
