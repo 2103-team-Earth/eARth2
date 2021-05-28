@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "../App.css";
-import { Link } from "react-router-dom";
 import logo from "../assets/earthLogo.png";
 import { Button, Image } from "react-bootstrap";
 
