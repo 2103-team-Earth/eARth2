@@ -12,21 +12,34 @@ Preview video of an animated model with audio: [takashiVidTest.mov.zip](https://
 
 ### Instructions
 
-```
-First, create your 3D model on our website
-- https://earth-a2ce0.web.app/
-- sign up/login
-- create a new project
-```
+### Link to the site
+
+https://earth-a2ce0.firebaseapp.com/
+
+### Preview video of an animated model with audio:
+
+[takashiVidTest.mov.zip](https://github.com/2103-team-Earth/eARth2/files/6540655/takashiVidTest.mov.zip)
+
+### Clone Repo
 
 ```
-Then, view your 3D model using AR on our mobile app
-- download the Viro Media app on your mobile device
-- clone this repo to your computer (git clone https://github.com/2103-team-Earth/eARth2.git)
-- then run: cd app, npm install, npm start
-- open the Viro Media app, tap the dropdown, and select enter testbed
-- enter the ngrok endpoint generated from your terminal or use your machine's IP address
-- once connected, login to continue
-- view the projects that you created
-- click on one to render your 3D AR model!
+git clone https://github.com/2103-team-Earth/eARth2.git
+cd app
+```
+
+### Installation
+
+```
+npm install
+```
+
+### Running the App
+
+```
+npm start
+download Viro Media app
+Open the app, tap the dropdown, and select enter testbed
+enter the ngrok endpoint generated from your terminal
+or use your machine's IP address
+once connected login to continue
 ```
