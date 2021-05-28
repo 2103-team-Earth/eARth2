@@ -11,8 +11,8 @@ export class Login extends Component {
     super(props);
 
     this.state = {
-      email: 'momack@gmail.com',
-      password: 'momack',
+      email: '',
+      password: '',
     };
 
     this.onLogin = this.onLogin.bind(this);
