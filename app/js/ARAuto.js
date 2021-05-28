@@ -82,6 +82,7 @@ class ARAuto extends Component {
         {project.text ? (
           <ViroText
             text={this.state.text}
+            extrusionDepth={8}
             scale={[
               0.25, 0.25, 0.25,
               // convertToNumber(project.textScaleX),
