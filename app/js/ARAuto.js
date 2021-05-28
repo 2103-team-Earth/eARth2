@@ -25,13 +25,10 @@ function convertToNumber(string) {
 class ARAuto extends Component {
   constructor() {
     super();
-
-    // Set initial state here
     this.state = {
       text: 'Loading...',
     };
 
-    // bind 'this' to functions
     this.myColorKey = `myColor${Date.now().toString().slice(-3)}`;
     this.myTextureKey = `myTexture${Date.now().toString().slice(-3)}`;
     this.mySoundKey = `mySound${Date.now().toString().slice(-3)}`;
@@ -63,25 +60,6 @@ class ARAuto extends Component {
         [this.mySoundKey]: project.sound,
       });
     }
-
-    // console.log(JSON.stringify(project, null, 4));
-    //
-    // this.myTextureKey = `myTexture ${Date.now()}`;
-    // if (project.colorSelected) {
-    //   ViroMaterials.createMaterials({
-    //     [this.myColorKey]: {
-    //       diffuseColor: '#eac07a',
-    //       lightingModel: 'Blinn',
-    //     },
-    //   });
-    // } else {
-    //   ViroMaterials.createMaterials({
-    //     [this.myTextureKey]: {
-    //       diffuseTexture: project.diffuseTexture,
-    //       lightingModel: 'Blinn',
-    //     },
-    //   });
-    // }
   }
 
   render() {

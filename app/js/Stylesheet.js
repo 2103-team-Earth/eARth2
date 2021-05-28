@@ -18,7 +18,7 @@ export default styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   titleText: {
-    paddingTop: 30,
+    paddingTop: 15,
     paddingBottom: 20,
     color: '#fff',
     textAlign: 'center',
@@ -30,10 +30,10 @@ export default styles = StyleSheet.create({
     fontSize: 20,
   },
   buttons: {
-    height: 80,
+    height: 60,
     width: 150,
-    paddingTop: 20,
-    paddingBottom: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
     marginTop: 10,
     marginBottom: 10,
     backgroundColor: '#68a0cf',
@@ -66,6 +66,7 @@ export default styles = StyleSheet.create({
   card: {
     // borderRadius: 20,
     flex: 1,
+    padding: 10,
     overflow: 'hidden',
     borderColor: 'black',
     borderWidth: 1,
@@ -74,6 +75,8 @@ export default styles = StyleSheet.create({
   projectCard: {
     borderRadius: 30,
     padding: 10,
+    marginTop: 5,
+    marginBottom: 5,
     overflow: 'hidden',
     borderColor: 'black',
     borderWidth: 1,
